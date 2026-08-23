@@ -344,8 +344,9 @@
 
     .spotlight-blob img.swap, .orbit-item-inner img.swap { opacity: 0; transform: scale(.7); }
 
-    #spotlightInfo { opacity: 0; transform: translateY(8px); transition: opacity .3s ease, transform .3s ease; pointer-events: none; }
-    #spotlightInfo.show { opacity: 1; transform: translateY(0); pointer-events: auto; }
+    #spotlightInfo { max-height: 0; overflow: hidden; opacity: 0; transform: translateY(8px);
+      transition: opacity .3s ease, transform .3s ease, max-height .45s ease; pointer-events: none; }
+    #spotlightInfo.show { max-height: 700px; opacity: 1; transform: translateY(0); pointer-events: auto; }
     .spotlight-feature-chip { font-size: .78rem; font-weight: 600; padding: .35rem .85rem; border-radius: 9999px;
       background: var(--color-bg-soft); border: 1px solid var(--color-line); color: var(--color-ink); }
 
