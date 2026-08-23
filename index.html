@@ -1,0 +1,1302 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Toolbench | Marketing &amp; SEO Tools, Tested by People Who Use Them</title>
+  <meta name="description"
+    content="Toolbench reviews SEO, content, and growth marketing tools we actually use on real client work. No sponsored rankings, no fluff — just honest verdicts.">
+  <meta name="robots" content="index, follow">
+  <link rel="canonical" href="https://toolbench.co/">
+
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="Toolbench">
+  <meta property="og:url" content="https://toolbench.co/">
+  <meta property="og:title" content="Toolbench | Marketing &amp; SEO Tools, Tested by People Who Use Them">
+  <meta property="og:description"
+    content="We review SEO, content, and growth marketing tools we actually use on real client work. No sponsored rankings, no fluff.">
+
+  <meta name="theme-color" content="#7C3AED">
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Organization",
+    "name": "Toolbench",
+    "url": "https://toolbench.co/",
+    "description": "Hands-on reviews of SEO, content, and growth marketing tools."
+  }
+  </script>
+
+  <!-- Tailwind v4 CDN -->
+  <script src="https://unpkg.com/@tailwindcss/browser@4"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@500;600;700;800&family=Inter:wght@400;500;600;700&family=Bricolage+Grotesque:opsz,wght@12..96,600..800&display=swap" rel="stylesheet">
+
+  <style type="text/tailwindcss">
+    @theme {
+      --font-display: 'Plus Jakarta Sans', sans-serif;
+      --font-hero: 'Bricolage Grotesque', sans-serif;
+      --font-sans: 'Inter', sans-serif;
+      --color-bg: #FFFFFF;
+      --color-bg-soft: #F6F7F8;
+      --color-surface: #FFFFFF;
+      --color-ink: #0B0D12;
+      --color-muted: #5B6472;
+      --color-line: #E6E8EB;
+      --color-accent: #7C3AED;
+      --color-accent-dark: #5B21B6;
+      --color-accent-soft: #F1EAFD;
+      --color-amber: #B7791F;
+      --color-amber-soft: #FBF1DF;
+    }
+
+    @property --pct {
+      syntax: '<number>';
+      inherits: false;
+      initial-value: 0;
+    }
+
+    html { scroll-behavior: smooth; }
+    body { background: var(--color-bg); color: var(--color-ink); }
+    .font-display { font-family: var(--font-display); }
+    .font-hero { font-family: var(--font-hero); letter-spacing: -0.01em; }
+    ::selection { background: var(--color-accent-soft); color: var(--color-accent-dark); }
+
+    /* ---------- Animated logo mark ---------- */
+    .logo-mark { width: 1.75rem; height: 1.75rem; border-radius: 0.55rem; background: var(--color-ink);
+      display:flex; align-items:flex-end; justify-content:center; gap:3px; padding: 6px 0 5px; }
+    .logo-mark .bar { width: 3px; border-radius: 2px; background: var(--color-accent); transform-origin: bottom; animation: barPulse 1.6s ease-in-out infinite; }
+    .logo-mark .bar:nth-child(1) { height: 40%; animation-delay: 0s; }
+    .logo-mark .bar:nth-child(2) { height: 100%; animation-delay: .18s; background: #fff; }
+    .logo-mark .bar:nth-child(3) { height: 65%; animation-delay: .36s; }
+    @keyframes barPulse { 0%,100% { transform: scaleY(.55); } 50% { transform: scaleY(1); } }
+    footer .logo-mark .bar { animation: none; }
+
+    /* ---------- Ambient hero backdrop: aurora mesh ---------- */
+    /* Three soft, blurred color fields that drift slowly on their own and lean gently
+       toward the cursor — quiet, premium motion rather than literal decoration. */
+    .field { position: absolute; inset: 0; overflow: hidden; z-index: 0; pointer-events: none; }
+    .field .glow { position: absolute; border-radius: 9999px; filter: blur(64px);
+      translate: 0 0; transition: translate .7s cubic-bezier(.16,1,.3,1); }
+    .glow.g1 { width: 34rem; height: 34rem; top: -13rem; left: -9rem; opacity: .3;
+      background: radial-gradient(circle, var(--color-accent) 0%, transparent 70%);
+      animation: drift1 24s ease-in-out infinite; }
+    .glow.g2 { width: 30rem; height: 30rem; top: -10rem; right: -8rem; opacity: .24;
+      background: radial-gradient(circle, #A57BF2 0%, transparent 70%);
+      animation: drift2 30s ease-in-out infinite; }
+    .glow.g3 { width: 20rem; height: 20rem; bottom: 3rem; left: 34%; opacity: .16;
+      background: radial-gradient(circle, var(--color-amber) 0%, transparent 70%);
+      animation: drift3 36s ease-in-out infinite; }
+    @keyframes drift1 { 0%,100% { transform: translate(0,0) scale(1); } 50% { transform: translate(2.5rem,2rem) scale(1.08); } }
+    @keyframes drift2 { 0%,100% { transform: translate(0,0) scale(1); } 50% { transform: translate(-2rem,2.5rem) scale(1.06); } }
+    @keyframes drift3 { 0%,100% { transform: translate(0,0) scale(1); } 50% { transform: translate(1.5rem,-1.5rem) scale(1.1); } }
+    .dotgrid { position: absolute; inset: 0; z-index: 0; opacity: .5;
+      background-image: radial-gradient(color-mix(in srgb, var(--color-ink) 8%, transparent) 1px, transparent 1px);
+      background-size: 24px 24px;
+      -webkit-mask-image: radial-gradient(55% 55% at 50% 15%, #000 0%, transparent 75%);
+      mask-image: radial-gradient(55% 55% at 50% 15%, #000 0%, transparent 75%); }
+    .dotgrid-dark { position: absolute; inset: 0; z-index: 0; opacity: .35;
+      background-image: radial-gradient(rgba(255,255,255,.14) 1px, transparent 1px);
+      background-size: 26px 26px;
+      -webkit-mask-image: radial-gradient(60% 60% at 50% 30%, #000 0%, transparent 78%);
+      mask-image: radial-gradient(60% 60% at 50% 30%, #000 0%, transparent 78%); }
+
+/* ---------- Reveal on scroll ---------- */
+    .reveal { opacity: 0; transform: translateY(20px); transition: opacity .6s cubic-bezier(.16,1,.3,1), transform .6s cubic-bezier(.16,1,.3,1); }
+    .reveal.is-in { opacity: 1; transform: translateY(0); }
+    .stagger > * { transition-delay: calc(var(--i,0) * 80ms); }
+
+    /* ---------- Hero entrance ---------- */
+    .hero-in { opacity: 0; transform: translateY(14px); animation: heroIn .75s cubic-bezier(.16,1,.3,1) forwards; }
+    @keyframes heroIn { to { opacity: 1; transform: translateY(0); } }
+
+    /* ---------- Nav underline ---------- */
+    .nav-link { position: relative; }
+    .nav-link::after { content:""; position:absolute; left:0; right:0; bottom:-4px; height:1.5px; background: var(--color-accent); transform: scaleX(0); transform-origin: left; transition: transform .25s cubic-bezier(.16,1,.3,1); }
+    .nav-link:hover::after { transform: scaleX(1); }
+
+    /* ---------- Buttons ---------- */
+    .btn-shine { position: relative; overflow: hidden; }
+    .btn-shine::before { content:""; position:absolute; top:0; left:-60%; width:35%; height:100%;
+      background: linear-gradient(115deg, transparent, rgba(255,255,255,.4), transparent);
+      transform: skewX(-18deg); transition: left .65s ease; }
+    .btn-shine:hover::before { left: 130%; }
+    .btn-press { transition: transform .15s ease, box-shadow .2s ease; }
+    .btn-press:active { transform: scale(.96); }
+
+    /* ---------- Hero search: glossy, premium treatment ---------- */
+    .hero-search { position:relative; display:flex; align-items:center; gap:.75rem;
+      background: rgba(255,255,255,.35); backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px);
+      border: 1px solid rgba(17,20,28,.1);
+      border-radius:9999px; padding:.3rem .3rem .3rem 1.25rem; overflow:hidden;
+      box-shadow: 0 1px 0 rgba(255,255,255,.7) inset, 0 22px 44px -22px rgba(124,58,237,.28), 0 3px 10px -2px rgba(11,13,18,.06);
+      transition: border-color .2s ease, box-shadow .25s ease, transform .2s ease; }
+    .hero-search::before { content:""; position:absolute; top:0; left:6%; right:6%; height:1px;
+      background: linear-gradient(90deg, transparent, rgba(255,255,255,.95), transparent); pointer-events:none; }
+    .hero-search:focus-within { border-color: color-mix(in srgb, var(--color-accent) 45%, rgba(17,20,28,.08));
+      box-shadow: 0 1px 0 rgba(255,255,255,.9) inset, 0 0 0 4px color-mix(in srgb, var(--color-accent) 14%, transparent), 0 24px 48px -20px rgba(124,58,237,.32); }
+    .hero-search input { position:relative; z-index:1; flex:1; border:0; outline:0; background:transparent; font-size:.98rem; color:var(--color-ink); min-width:0; }
+    .hero-search input::placeholder { color: var(--color-muted); }
+    .hero-search-btn { position:relative; width:2.5rem; height:2.5rem; border-radius:9999px; color:#fff;
+      background: linear-gradient(165deg, #A57BF2 0%, var(--color-accent) 55%, var(--color-accent-dark) 100%);
+      display:flex; align-items:center; justify-content:center; flex-shrink:0; border:0; cursor:pointer; overflow:hidden;
+      box-shadow: 0 1px 0 rgba(255,255,255,.5) inset, 0 10px 22px -8px rgba(124,58,237,.6);
+      transition: transform .15s ease, box-shadow .2s ease; }
+    .hero-search-btn::after { content:""; position:absolute; top:-40%; left:-20%; width:70%; height:70%; border-radius:9999px;
+      background: radial-gradient(circle, rgba(255,255,255,.55), transparent 70%); pointer-events:none; }
+    .hero-search-btn:hover { box-shadow: 0 1px 0 rgba(255,255,255,.5) inset, 0 14px 26px -8px rgba(124,58,237,.7); }
+    .hero-search-btn:active { transform: scale(.94); }
+    .search-arrow { animation: arrowFloat 1.8s ease-in-out infinite; }
+    @keyframes arrowFloat { 0%,100% { transform: translateY(0); } 50% { transform: translateY(-3px); } }
+    .hero-search-btn:hover .search-arrow { animation-duration: .7s; }
+
+    /* ---------- Ping ring (live indicator) ---------- */
+    .ping-dot { position: relative; }
+    .ping-dot::before { content:""; position:absolute; inset:0; border-radius:9999px;
+      background: var(--color-accent); animation: pingRing 1.8s cubic-bezier(0,0,.2,1) infinite; }
+    @keyframes pingRing { 0% { transform: scale(1); opacity: .65; } 75%,100% { transform: scale(2.6); opacity: 0; } }
+
+    /* ---------- Shine sweep (auto-plays a few times, then rests) ---------- */
+    .shine-sweep { position: relative; overflow: hidden; }
+    .shine-sweep::after { content:""; position:absolute; top:0; bottom:0; left:-60%; width:40%;
+      background: linear-gradient(115deg, transparent, color-mix(in srgb, var(--color-accent) 35%, transparent), transparent);
+      animation: shineSweep 2.4s ease-in-out .6s 3; }
+    @keyframes shineSweep { from { left:-60%; } to { left:130%; } }
+
+    /* ---------- Rotating glyph (large ambient background mark) ---------- */
+    .glyph-spin { position:absolute; width:50rem; height:50rem; border-radius:9999px; top:50%; left:50%;
+      margin:-25rem 0 0 -25rem; pointer-events:none;
+      background: repeating-conic-gradient(rgba(255,255,255,.055) 0deg 3deg, transparent 3deg 15deg);
+      animation: glyphSpin 90s linear infinite; }
+    @keyframes glyphSpin { to { transform: rotate(360deg); } }
+
+    /* ---------- Cards / tilt ---------- */
+    .card-hover { transition: transform .25s cubic-bezier(.16,1,.3,1), border-color .25s ease; will-change: transform; }
+    .card-hover:hover { transform: translateY(-3px); border-color: color-mix(in srgb, var(--color-accent) 45%, var(--color-line)); }
+    .card-hover:hover .arrow { transform: translateX(4px); }
+    .arrow { transition: transform .2s cubic-bezier(.16,1,.3,1); display:inline-block; }
+
+    /* ---------- Mock screenshot strip (card visual identity, no real images needed) ---------- */
+    .mock-shot { height: 108px; padding: 14px 16px; position: relative; overflow: hidden; }
+    .mock-shot .dots { display:flex; gap:4px; margin-bottom:10px; }
+    .mock-shot .dots span { width:6px; height:6px; border-radius:9999px; background: rgba(255,255,255,.5); }
+    .mock-shot .bars span { display:block; height:6px; border-radius:4px; background: rgba(255,255,255,.32); margin-bottom:6px; }
+    .mock-shot .chartbars { position:absolute; right:14px; bottom:14px; display:flex; align-items:flex-end; gap:4px; height:38px; }
+    .mock-shot .chartbars span { width:6px; border-radius:2px; background: rgba(255,255,255,.4); }
+
+    /* ---------- Grade rings ---------- */
+    .grade-ring { --pct: 0; width: 3.1rem; height: 3.1rem; border-radius: 9999px; display:flex; align-items:center; justify-content:center;
+      font-family: var(--font-display); font-weight:700; font-size:1rem; flex-shrink:0;
+      transition: --pct 1.1s cubic-bezier(.16,1,.3,1); }
+    .grade-ring.a { color: var(--color-accent-dark);
+      background: radial-gradient(closest-side, var(--color-surface) 76%, transparent 77% 100%), conic-gradient(var(--color-accent) calc(var(--pct) * 1%), var(--color-accent-soft) 0); }
+    .grade-ring.b { color: var(--color-amber);
+      background: radial-gradient(closest-side, var(--color-surface) 76%, transparent 77% 100%), conic-gradient(var(--color-amber) calc(var(--pct) * 1%), var(--color-amber-soft) 0); }
+    .grade-ring.sm { width: 2.3rem; height: 2.3rem; font-size: .78rem; }
+
+    /* ---------- Marquee (logo chips) ---------- */
+    .marquee-track { display:flex; gap:1rem; width:max-content; animation: marquee 32s linear infinite; }
+    .marquee-wrap:hover .marquee-track { animation-play-state: paused; }
+    @keyframes marquee { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+    .marquee-fade { -webkit-mask-image: linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent); mask-image: linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent); }
+    .marquee-chip { display:flex; align-items:center; gap:.55rem; background:#fff; border:1px solid var(--color-line); border-radius:9999px;
+      padding:.5rem 1.15rem; font-size:.85rem; font-weight:600; color:var(--color-ink); white-space:nowrap; flex-shrink:0;
+      transition: border-color .2s ease, transform .2s ease; }
+    .marquee-chip:hover { border-color: color-mix(in srgb, var(--color-accent) 45%, var(--color-line)); transform: translateY(-2px); }
+
+    /* ---------- Small floating tag chip (stacks/categories visuals) ---------- */
+    .stack-chip { display:inline-flex; align-items:center; background:#fff; border:1px solid var(--color-line); border-radius:9999px;
+      padding:.35rem .8rem; font-size:.72rem; font-weight:600; color:var(--color-ink); white-space:nowrap;
+      box-shadow: 0 3px 10px -4px rgba(11,13,18,.12); }
+
+    /* ---------- Scroll-driven 3D logo stack (Become Efficient) ---------- */
+    .stack-area-3d { perspective: 1300px; }
+    .stack-tile { position: absolute; left: 50%; top: 50%; width: 128px; height: 128px; margin: -64px 0 0 -64px;
+      border-radius: 1.6rem; background: #fff; border: 1px solid var(--color-line);
+      box-shadow: 0 22px 44px -16px rgba(11,13,18,.32);
+      display: flex; align-items: center; justify-content: center;
+      will-change: transform, opacity; }
+    .stack-tile img { width: 58%; height: 58%; object-fit: contain; }
+    /* ---------- Twin orbiting wheels (Comparisons) ---------- */
+    .orbit-ring { position: relative; width: 160px; height: 260px; flex-shrink: 0; perspective: 700px; }
+    .orbit-logo { position: absolute; top: 50%; left: 50%; width: 72px; height: 72px; margin: -36px 0 0 -36px;
+      border-radius: 1.15rem; background: #fff; border: 1px solid var(--color-line);
+      box-shadow: 0 18px 34px -14px rgba(11,13,18,.32);
+      display: flex; align-items: center; justify-content: center; overflow: hidden;
+      transition: transform .5s cubic-bezier(.16,1,.3,1), opacity .5s ease;
+      will-change: transform, opacity; }
+    .orbit-logo img { width: 60%; height: 60%; object-fit: contain; }
+    .orbit-vs-badge { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); z-index: 50;
+      width: 3.1rem; height: 3.1rem; border-radius: 9999px; background: var(--color-ink); color: #fff;
+      display: flex; align-items: center; justify-content: center;
+      font-family: var(--font-display); font-weight: 800; font-size: .82rem; letter-spacing: .02em;
+      box-shadow: 0 14px 28px -10px rgba(11,13,18,.5); }
+
+    /* ---------- Alternatives: pairs of logos swapping sides ---------- */
+    .swap-pair { position: relative; width: 168px; height: 76px; flex-shrink: 0; }
+    .swap-tile { position: absolute; top: 0; width: 72px; height: 72px; border-radius: 1.1rem;
+      background: #fff; border: 1px solid var(--color-line); box-shadow: 0 16px 30px -16px rgba(11,13,18,.28);
+      display: flex; align-items: center; justify-content: center; overflow: hidden; }
+    .swap-tile img { width: 60%; height: 60%; object-fit: contain; }
+    .swap-tile.left { left: 0; animation: swapRight var(--swap-dur, 4s) ease-in-out infinite; animation-delay: var(--swap-delay, 0s); }
+    .swap-tile.right { right: 0; animation: swapLeft var(--swap-dur, 4s) ease-in-out infinite; animation-delay: var(--swap-delay, 0s); }
+    @keyframes swapRight { 0%, 12% { transform: translate(0,0); z-index: 2; } 45%, 55% { transform: translate(96px,-14px); z-index: 1; } 88%, 100% { transform: translate(0,0); z-index: 2; } }
+    @keyframes swapLeft { 0%, 12% { transform: translate(0,0); z-index: 2; } 45%, 55% { transform: translate(-96px,-14px); z-index: 1; } 88%, 100% { transform: translate(0,0); z-index: 2; } }
+    @media (prefers-reduced-motion: reduce) {
+      .swap-tile { animation: none !important; }
+    }
+
+    /* ---------- Hero backdrop: colorful, drifting field of app logos ---------- */
+    .hero-app-field { position: absolute; inset: 0; z-index: 1; pointer-events: none;
+      -webkit-mask-image: radial-gradient(65% 60% at 50% 40%, transparent 0%, transparent 28%, #000 62%);
+      mask-image: radial-gradient(65% 60% at 50% 40%, transparent 0%, transparent 28%, #000 62%); }
+    .hero-app-logo { position: absolute; border-radius: .8rem; background: #fff; border: 1px solid var(--color-line);
+      opacity: .4; display: flex; align-items: center; justify-content: center; overflow: hidden;
+      animation: altFloatSubtle var(--hero-dur, 6s) ease-in-out infinite; animation-delay: var(--hero-delay, 0s); }
+    .hero-app-logo img { width: 60%; height: 60%; object-fit: contain; }
+    @keyframes altFloatSubtle { 0%, 100% { transform: translateY(0) rotate(var(--hero-r, 0deg)); } 50% { transform: translateY(-9px) rotate(var(--hero-r, 0deg)); } }
+    @media (prefers-reduced-motion: reduce) {
+      .hero-app-logo { animation: none !important; }
+    }
+
+    /* ---------- Deals carousel: coverflow slideshow with tilted screenshots ---------- */
+    .deals-viewport { overflow: hidden; padding: 1.5rem 0; perspective: 1400px; }
+    .deals-track { position: relative; display: flex; align-items: center; gap: 1.75rem; width: max-content;
+      transform-style: preserve-3d; transition: transform .65s cubic-bezier(.16,1,.3,1); will-change: transform; }
+    .deal-card { flex: 0 0 auto; width: min(480px, 74vw); }
+    .deal-shot { position: relative; height: 200px; border-radius: 1.1rem; overflow: hidden;
+      box-shadow: 0 26px 50px -22px rgba(11,13,18,.4);
+      transition: transform .6s cubic-bezier(.16,1,.3,1), opacity .6s cubic-bezier(.16,1,.3,1), box-shadow .6s ease; }
+    .deal-card.is-active .deal-shot { box-shadow: 0 34px 60px -20px rgba(11,13,18,.45); }
+    .deal-shot-img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+    .deal-info { display: flex; align-items: center; gap: .65rem; margin-top: 1rem; transition: opacity .4s ease; opacity: .45; }
+    .deal-card.is-active .deal-info { opacity: 1; }
+    .deal-info img { width: 1.75rem; height: 1.75rem; object-fit: contain; flex-shrink: 0; }
+    .deals-nav { display: flex; align-items: center; justify-content: center; gap: 1rem; margin-top: 1.5rem; }
+    .deals-nav-btn { width: 2.25rem; height: 2.25rem; border-radius: 9999px; background: var(--color-bg-soft); color: var(--color-ink);
+      display: flex; align-items: center; justify-content: center; border: 0; cursor: pointer; flex-shrink: 0;
+      transition: background .2s ease; }
+    .deals-nav-btn:hover { background: var(--color-line); }
+    .deals-dots { display: flex; align-items: center; gap: .4rem; }
+    .deal-dot { width: .4rem; height: .4rem; border-radius: 9999px; background: var(--color-line); transition: background .2s ease, transform .2s ease; cursor: pointer; border: 0; padding: 0; }
+    .deal-dot.active { background: var(--color-accent); transform: scale(1.35); }
+
+    /* ---------- Brand logo slots: real logo if present, else clean text ---------- */
+    .chip-logo { height:16px; width:auto; max-width:76px; object-fit:contain; flex-shrink:0; }
+    .card-logo { height:26px; width:auto; max-width:120px; object-fit:contain; }
+    .ticker-logo { height:20px; width:auto; max-width:90px; object-fit:contain; }
+
+    /* ---------- Review pill (marquee card: icon + name + verdict + badge) ---------- */
+    .review-pill { display:flex; align-items:center; gap:.75rem; background:#fff; border:1px solid var(--color-line);
+      border-radius:1rem; padding:.65rem 1rem .65rem .65rem; flex-shrink:0; white-space:nowrap;
+      transition: border-color .2s ease, transform .2s ease; }
+    .review-pill:hover { border-color: color-mix(in srgb, var(--color-accent) 40%, var(--color-line)); transform: translateY(-2px); }
+    .review-pill .rp-icon { width:2.5rem; height:2.5rem; border-radius:.7rem; overflow:hidden; flex-shrink:0;
+      display:flex; align-items:center; justify-content:center; background:var(--color-bg-soft); }
+    .review-pill .rp-icon img { width:100%; height:100%; object-fit:contain; padding:6px; }
+    .review-pill .rp-name { font-family: var(--font-display); font-weight:700; font-size:.92rem; line-height:1.2; color: var(--color-ink); }
+    .review-pill .rp-sub { font-size:.76rem; color: var(--color-muted); margin-top:1px; }
+    .review-pill .rp-badge { width:1.15rem; height:1.15rem; color: var(--color-accent); flex-shrink:0; margin-left:.25rem; }
+
+    /* ---------- Best Of showcase: category pills + 3D water-bubble logos ---------- */
+    .score-pill { font-size: .85rem; font-weight: 600; padding: .55rem 1.15rem; border-radius: 9999px; border: 1px solid var(--color-line);
+      color: var(--color-muted); background: #fff; transition: border-color .2s ease, color .2s ease, background .2s ease; cursor: pointer; white-space: nowrap; }
+    .score-pill.active { border-color: var(--color-accent); color: var(--color-accent-dark); background: var(--color-accent-soft); }
+    .score-pill:not(.active):hover { border-color: color-mix(in srgb, var(--color-accent) 40%, var(--color-line)); color: var(--color-ink); }
+
+    .spotlight-stage { position: relative; max-width: 420px; height: 380px; margin: 0 auto; }
+    .spotlight-blob { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 130px; height: 130px;
+      border: 0; padding: 0;
+      background: linear-gradient(135deg, #A57BF2, var(--color-accent)); display: flex; align-items: center; justify-content: center;
+      box-shadow: 0 30px 60px -20px rgba(124,58,237,.55); animation: blobMorph 7s ease-in-out infinite; z-index: 2; }
+    @keyframes blobMorph {
+      0%, 100% { border-radius: 42% 58% 65% 35% / 45% 45% 55% 55%; }
+      25% { border-radius: 58% 42% 35% 65% / 55% 60% 40% 45%; }
+      50% { border-radius: 65% 35% 45% 55% / 40% 55% 45% 60%; }
+      75% { border-radius: 35% 65% 55% 45% / 60% 40% 60% 40%; }
+    }
+    .spotlight-logo-float { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center;
+      animation: spotlightLogoFloat 3.4s ease-in-out infinite; }
+    @keyframes spotlightLogoFloat {
+      0%, 100% { transform: translateY(0) scale(1); }
+      50% { transform: translateY(-6px) scale(1.04); }
+    }
+    .spotlight-blob img { width: 62%; height: 62%; object-fit: contain; background: #fff; border-radius: 26%; padding: 9%; box-sizing: border-box;
+      box-shadow: 0 10px 24px -8px rgba(0,0,0,.4); transition: opacity .3s ease, transform .3s ease; }
+
+    .spotlight-orbit { position: absolute; inset: 0; animation: orbitSpin 14s linear infinite; }
+    .spotlight-orbit.paused { animation-play-state: paused; }
+    @keyframes orbitSpin { to { transform: rotate(360deg); } }
+    .orbit-item { position: absolute; top: 50%; left: 50%; width: 76px; height: 76px; margin: -38px 0 0 -38px;
+      border: 0; padding: 0; cursor: pointer; z-index: 1; }
+    .orbit-item-inner { display: flex; width: 100%; height: 100%; border-radius: 1.3rem; background: #fff; border: 1px solid var(--color-line);
+      box-shadow: 0 16px 30px -16px rgba(11,13,18,.24); align-items: center; justify-content: center; overflow: hidden;
+      animation: orbitCounterSpin 14s linear infinite; transition: box-shadow .25s ease; }
+    .orbit-item-inner.paused { animation-play-state: paused; }
+    @keyframes orbitCounterSpin { to { transform: rotate(-360deg); } }
+    .orbit-item-inner img { width: 56%; height: 56%; object-fit: contain; border-radius: 20%; transition: opacity .3s ease, transform .3s ease; }
+    .orbit-item:hover .orbit-item-inner { box-shadow: 0 0 0 3px color-mix(in srgb, var(--color-accent) 30%, transparent), 0 16px 30px -16px rgba(11,13,18,.24); }
+    .orbit-item-float { display: flex; width: 100%; height: 100%; align-items: center; justify-content: center; }
+    .orbit-item-inner.paused .orbit-item-float { animation: spotlightLogoFloat 3.4s ease-in-out infinite; }
+
+    .spotlight-blob img.swap, .orbit-item-inner img.swap { opacity: 0; transform: scale(.7); }
+
+    #spotlightInfo { opacity: 0; transform: translateY(8px); transition: opacity .3s ease, transform .3s ease; pointer-events: none; }
+    #spotlightInfo.show { opacity: 1; transform: translateY(0); pointer-events: auto; }
+    .spotlight-feature-chip { font-size: .78rem; font-weight: 600; padding: .35rem .85rem; border-radius: 9999px;
+      background: var(--color-bg-soft); border: 1px solid var(--color-line); color: var(--color-ink); }
+
+    @media (prefers-reduced-motion: reduce) {
+      html { scroll-behavior: auto; }
+      .reveal { opacity:1 !important; transform:none !important; transition:none !important; }
+      .hero-in { animation:none !important; opacity:1 !important; transform:none !important; }
+      .marquee-track { animation:none !important; }
+      .grade-ring { transition:none !important; }
+      .card-hover { transition:none !important; }
+      .logo-mark .bar { animation:none !important; transform:scaleY(.8) !important; }
+      .field .glow { animation:none !important; transition:none !important; }
+      .search-arrow { animation:none !important; }
+      .ping-dot::before { animation:none !important; opacity:0 !important; }
+      .shine-sweep::after { animation:none !important; }
+      .glyph-spin { animation:none !important; }
+      .spotlight-blob { animation:none !important; border-radius: 42% 58% 65% 35% / 45% 45% 55% 55% !important; }
+      .spotlight-logo-float, .orbit-item-float { animation:none !important; }
+      .spotlight-orbit, .orbit-item-inner { animation:none !important; }
+      #spotlightInfo { transition:none !important; }
+    }
+  </style>
+</head>
+
+<body class="font-sans text-[var(--color-ink)] antialiased">
+
+  <!-- NAV -->
+  <header class="sticky top-0 z-40 bg-white/85 backdrop-blur-md border-b border-[var(--color-line)]">
+    <div class="max-w-6xl mx-auto px-6 h-20 flex items-center justify-between">
+      <a href="/" class="flex items-center gap-2.5">
+        <span class="logo-mark"><span class="bar"></span><span class="bar"></span><span class="bar"></span></span>
+        <span class="font-display text-lg font-extrabold tracking-tight">Toolbench</span>
+      </a>
+      <div class="flex items-center gap-3">
+        <label class="hidden md:flex items-center gap-2 bg-[var(--color-bg-soft)] border border-[var(--color-line)] rounded-full px-3.5 py-2 w-40 focus-within:w-60 focus-within:border-[var(--color-accent)] transition-[width,border-color] duration-300">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" class="text-[var(--color-muted)] shrink-0"><circle cx="11" cy="11" r="7" stroke="currentColor" stroke-width="2"/><path d="M21 21l-4.3-4.3" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+          <input id="searchInput" type="text" placeholder="Search tools…" class="bg-transparent outline-none text-sm w-full placeholder:text-[var(--color-muted)]">
+        </label>
+        <a href="#newsletter" class="btn-shine btn-press text-sm font-semibold bg-[var(--color-ink)] text-white px-4 py-2 rounded-full hover:bg-[var(--color-accent)] transition-colors whitespace-nowrap">Get Weekly Picks</a>
+      </div>
+    </div>
+  </header>
+
+  <!-- HERO -->
+  <section class="relative overflow-hidden" id="hero">
+    <div class="relative overflow-hidden">
+      <div class="field" aria-hidden="true">
+        <span class="glow g1" style="--depth:.5"></span>
+        <span class="glow g2" style="--depth:.35"></span>
+        <span class="glow g3" style="--depth:.6"></span>
+      </div>
+      <div class="dotgrid"></div>
+      <div class="hero-app-field" id="heroAppField" aria-hidden="true"></div>
+      <div class="relative z-10 max-w-6xl mx-auto px-6 pt-16 pb-10 md:pt-28 md:pb-12">
+        <div class="max-w-2xl mx-auto text-center">
+
+          <!-- Headline -->
+          <h1 class="hero-in font-hero font-bold tracking-tight text-balance text-[var(--color-ink)] text-4xl sm:text-5xl md:text-[3.1rem] leading-[1.15]" style="animation-delay:.24s">
+            Every tool here earned its spot on <span class="text-[var(--color-accent)]">the bench</span>.
+          </h1>
+
+          <!-- Copy -->
+          <p class="hero-in mt-6 text-xl leading-[1.6] font-normal text-[var(--color-muted)] max-w-lg mx-auto" style="animation-delay:.34s">
+            No vague verdicts. No sponsored placements.<br class="hidden sm:block">
+            Just hands-on testing — so you don't have to.
+          </p>
+
+          <form class="hero-in mt-6 max-w-xl mx-auto" id="heroSearchForm" style="animation-delay:.42s">
+            <label class="hero-search">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" class="text-[var(--color-muted)] shrink-0"><circle cx="11" cy="11" r="7" stroke="currentColor" stroke-width="2"/><path d="M21 21l-4.3-4.3" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+              <input type="text" id="heroSearchInput" placeholder="Find a tool, a comparison, or a category…">
+              <button type="submit" class="hero-search-btn" aria-label="Search">
+                <svg class="search-arrow" width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M12 19V5M5 12l7-7 7 7" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              </button>
+            </label>
+          </form>
+
+          <p class="hero-in mt-7 text-sm font-semibold text-[var(--color-muted)]" style="animation-delay:.5s">
+            Trusted by 4,000+ marketing teams · 900+ new teams every month
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Review pill marquee -->
+    <div class="relative z-10">
+      <div class="marquee-wrap marquee-fade relative overflow-hidden py-6">
+        <div class="marquee-track" id="reviewPillTrack"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- DEALS -->
+  <section id="deals" class="max-w-6xl mx-auto px-6 py-20 md:py-28">
+    <div class="reveal text-center max-w-2xl mx-auto mb-12">
+      <div class="text-xs font-bold uppercase tracking-wider text-[var(--color-accent)] mb-3">App Deals</div>
+      <h2 class="font-display text-3xl md:text-4xl font-extrabold tracking-tight text-balance">Exclusive deals you won't find anywhere else</h2>
+      <p class="mt-4 text-lg text-[var(--color-muted)]">We don't just find the best tools, we negotiate the best deals. Limited-time offers, refreshed monthly.</p>
+      <div class="mt-7 flex flex-wrap items-center justify-center gap-3">
+        <a href="#" class="btn-shine btn-press inline-flex items-center gap-2 bg-[var(--color-ink)] text-white font-semibold px-6 py-3.5 rounded-full hover:bg-[var(--color-accent)] transition-colors">Find top deals</a>
+        <a href="#newsletter" class="btn-press inline-flex items-center gap-2 font-semibold px-6 py-3.5 rounded-full bg-[var(--color-bg-soft)] hover:bg-[var(--color-line)] transition-colors">Subscribe to updates</a>
+      </div>
+    </div>
+
+    <div class="reveal" id="dealsCarousel">
+      <div class="deals-viewport">
+        <div class="deals-track" id="dealsTrack"></div>
+      </div>
+      <div class="deals-nav">
+        <button type="button" id="dealsPrev" aria-label="Previous deal" class="deals-nav-btn">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none"><path d="M15 18l-6-6 6-6" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </button>
+        <div class="deals-dots" id="dealsDots"></div>
+        <button type="button" id="dealsNext" aria-label="Next deal" class="deals-nav-btn">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none"><path d="M9 6l6 6-6 6" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </button>
+      </div>
+    </div>
+  </section>
+
+  <!-- EXPLORE / BECOME EFFICIENT: sticky heading + scroll-driven stacking cards -->
+  <section id="explore" class="relative">
+    <div class="max-w-6xl mx-auto px-6" id="exploreRunway" style="height: 320vh;">
+      <div class="sticky top-24 md:top-28 grid md:grid-cols-2 gap-10 md:gap-16 items-center" style="min-height: 70vh;">
+        <div class="reveal">
+          <div class="text-xs font-bold uppercase tracking-wider text-[var(--color-accent)] mb-3">Become efficient</div>
+          <h2 class="font-display text-3xl md:text-4xl font-extrabold tracking-tight text-balance">Stacks for every kind of team.</h2>
+          <p class="mt-4 text-lg text-[var(--color-muted)] max-w-md">No filler picks, no padded lists — just the tools that actually made the cut for each kind of team.</p>
+          <a href="#" class="mt-5 inline-flex items-center gap-1 text-sm font-semibold text-[var(--color-accent-dark)]">Explore more <span class="arrow">→</span></a>
+        </div>
+        <div class="relative h-[300px] md:h-[340px] stack-area-3d" id="stackArea"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- COMPARISONS: two self-spinning app wheels -->
+  <section id="comparisons" class="max-w-6xl mx-auto px-6 py-20 md:py-28">
+    <div class="grid md:grid-cols-2 gap-10 md:gap-16 items-center">
+      <div class="reveal">
+        <div class="text-xs font-bold uppercase tracking-wider text-[var(--color-accent)] mb-3">Comparisons</div>
+        <h2 class="font-display text-3xl md:text-4xl font-extrabold tracking-tight text-balance">Every tool has a rival.</h2>
+        <p class="mt-4 text-lg text-[var(--color-muted)] max-w-md">Two live picks, face to face — see what else is worth considering before you commit.</p>
+        <a href="#" class="mt-5 inline-flex items-center gap-1 text-sm font-semibold text-[var(--color-accent-dark)]">Explore more <span class="arrow">→</span></a>
+      </div>
+      <div class="reveal relative h-[300px] md:h-[340px] flex items-center justify-center gap-8 md:gap-14" id="vsArea">
+        <div class="orbit-ring" id="orbitLeft"></div>
+        <div class="orbit-vs-badge">VS</div>
+        <div class="orbit-ring" id="orbitRight"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ALTERNATIVES -->
+  <section id="alternatives" class="max-w-6xl mx-auto px-6 pb-20 md:pb-28">
+    <div class="reveal relative overflow-hidden bg-white border border-[var(--color-line)] rounded-3xl px-8 py-14 md:py-16 text-center">
+      <div class="relative z-10">
+        <div class="mx-auto mb-4 w-11 h-11 rounded-full bg-[var(--color-accent-soft)] flex items-center justify-center">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--color-accent-dark)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 4v13M7 17l-4-4M7 17l4-4"/><path d="M17 20V7M17 7l4 4M17 7l-4 4"/></svg>
+        </div>
+        <h2 class="font-display text-3xl md:text-4xl font-extrabold tracking-tight text-balance">Alternatives</h2>
+        <p class="mt-4 text-lg text-[var(--color-muted)] max-w-md mx-auto">Find the best option for your use case.<br class="hidden sm:block">Compare, switch, repeat.</p>
+        <a href="#" class="mt-4 inline-flex items-center gap-1 text-sm font-semibold text-[var(--color-accent-dark)]">See alternatives <span class="arrow">→</span></a>
+      </div>
+      <div class="flex flex-wrap items-center justify-center gap-x-6 gap-y-10 mt-12 pt-2 pb-4" id="altCluster"></div>
+    </div>
+  </section>
+
+  <!-- BEST OF SHOWCASE: light scoreboard, ranked by score bars -->
+  <section id="best" class="max-w-6xl mx-auto px-6 py-20 md:py-28">
+    <div class="reveal text-center max-w-2xl mx-auto mb-10">
+      <div class="text-xs font-bold uppercase tracking-wider text-[var(--color-accent)] mb-3">Best Of</div>
+      <h2 class="font-display text-3xl md:text-4xl font-extrabold tracking-tight text-balance">Find the right tool for every job.</h2>
+      <p class="mt-4 text-lg text-[var(--color-muted)] max-w-lg mx-auto">Ranked by hands-on results, not who paid the most to be on this list.</p>
+    </div>
+
+    <div class="reveal flex flex-wrap items-center justify-center gap-2 mb-10" id="bubbleCatPills">
+      <button type="button" class="score-pill active" data-cat="ai">Best of AI</button>
+      <button type="button" class="score-pill" data-cat="email">Best of Email</button>
+      <button type="button" class="score-pill" data-cat="social">Best of Social Media Management</button>
+      <button type="button" class="score-pill" data-cat="planning">Best of Daily Planning</button>
+    </div>
+
+    <div class="reveal spotlight-stage" id="spotlightStage">
+      <div class="spotlight-orbit" id="spotlightOrbit"></div>
+      <div class="spotlight-blob" id="spotlightBlobBtn" aria-label="Current tool"><span class="spotlight-logo-float"><img id="spotlightLogo" alt=""></span></div>
+    </div>
+
+    <div class="reveal text-center max-w-md mx-auto mt-8" id="spotlightInfo">
+      <h3 class="font-display text-xl font-bold" id="spotlightName">&nbsp;</h3>
+
+      <div class="relative mt-5 pl-5 text-left">
+        <div class="absolute left-0 top-1.5 bottom-1.5 w-px bg-[var(--color-line)]"></div>
+
+        <div class="relative pb-5">
+          <span class="absolute -left-5 top-1.5 w-4 h-px bg-[var(--color-line)]"></span>
+          <span class="absolute -left-[3px] top-[3px] w-1.5 h-1.5 rounded-full bg-[var(--color-accent)]"></span>
+          <div class="text-[10px] font-bold uppercase tracking-wider text-[var(--color-accent)] mb-1">Summary</div>
+          <p class="text-sm text-[var(--color-muted)] leading-relaxed" id="spotlightSummary">&nbsp;</p>
+          <a href="#" class="mt-2 inline-flex items-center gap-1 text-sm font-semibold text-[var(--color-accent-dark)]">Read more <span class="arrow">→</span></a>
+        </div>
+
+        <div class="relative pb-5">
+          <span class="absolute -left-5 top-1.5 w-4 h-px bg-[var(--color-line)]"></span>
+          <span class="absolute -left-[3px] top-[3px] w-1.5 h-1.5 rounded-full bg-[var(--color-accent)]"></span>
+          <div class="text-[10px] font-bold uppercase tracking-wider text-[var(--color-accent)] mb-1.5">Features</div>
+          <div class="flex flex-wrap items-center gap-2" id="spotlightFeatures"></div>
+        </div>
+
+        <div class="relative pb-5">
+          <span class="absolute -left-5 top-1.5 w-4 h-px bg-[var(--color-line)]"></span>
+          <span class="absolute -left-[3px] top-[3px] w-1.5 h-1.5 rounded-full bg-[var(--color-accent)]"></span>
+          <div class="text-[10px] font-bold uppercase tracking-wider text-[var(--color-accent)] mb-1">Comparisons</div>
+          <p class="text-sm text-[var(--color-ink)] font-semibold" id="statComparisons">&nbsp;</p>
+        </div>
+
+        <div class="relative pb-5">
+          <span class="absolute -left-5 top-1.5 w-4 h-px bg-[var(--color-line)]"></span>
+          <span class="absolute -left-[3px] top-[3px] w-1.5 h-1.5 rounded-full bg-[var(--color-accent)]"></span>
+          <div class="text-[10px] font-bold uppercase tracking-wider text-[var(--color-accent)] mb-1">Limitations</div>
+          <p class="text-sm text-[var(--color-ink)] font-semibold" id="statLimitations">&nbsp;</p>
+        </div>
+
+        <div class="relative">
+          <span class="absolute -left-5 top-1.5 w-4 h-px bg-[var(--color-line)]"></span>
+          <span class="absolute -left-[3px] top-[3px] w-1.5 h-1.5 rounded-full bg-[var(--color-accent)]"></span>
+          <div class="text-[10px] font-bold uppercase tracking-wider text-[var(--color-accent)] mb-1">Pricing</div>
+          <p class="text-sm text-[var(--color-ink)] font-semibold" id="statPricing">&nbsp;</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ABOUT US / DIFFERENTIATOR -->
+  <section id="about" class="max-w-6xl mx-auto px-6 py-20 md:py-28">
+    <div class="reveal bg-white border border-[var(--color-line)] rounded-3xl p-8 md:p-14 relative overflow-hidden">
+      <div class="absolute -top-32 -left-20 w-96 h-96 rounded-full opacity-25 blur-3xl pointer-events-none" style="background: radial-gradient(circle, var(--color-accent), transparent 70%);"></div>
+      <div class="relative grid md:grid-cols-2 gap-12 items-start">
+        <div>
+          <div class="text-xs font-bold uppercase tracking-wider text-[var(--color-accent)] mb-3">About Us</div>
+          <h2 class="font-display text-3xl md:text-4xl font-extrabold tracking-tight mb-5 text-balance">Built by people who use these tools every single day</h2>
+          <p class="text-[var(--color-muted)] leading-relaxed mb-4">Most tool roundups are written by someone who signed up for a free trial the night before publishing. We're a working growth team — the tools on this list are the ones actually open in our browser tabs, not ones we tried once for a screenshot.</p>
+          <p class="text-[var(--color-muted)] leading-relaxed">Nobody pays us to rank higher. If a tool falls short on a real client project, the review says so — no exceptions.</p>
+        </div>
+        <div class="bg-[var(--color-bg-soft)] border border-[var(--color-line)] rounded-2xl overflow-hidden">
+          <div class="grid grid-cols-2 divide-x divide-[var(--color-line)]">
+            <div class="p-6">
+              <div class="text-xs font-bold uppercase tracking-wider text-[var(--color-amber)] mb-3">Other "Best Tool" Sites</div>
+              <ul class="space-y-3 text-sm text-[var(--color-muted)]">
+                <li>Highest bidder ranks #1</li>
+                <li>Written after a free trial</li>
+                <li>Vague, hedge-everything verdicts</li>
+                <li>No real usage evidence</li>
+              </ul>
+            </div>
+            <div class="p-6 bg-[var(--color-accent-soft)]">
+              <div class="text-xs font-bold uppercase tracking-wider text-[var(--color-accent-dark)] mb-3">Toolbench</div>
+              <ul class="space-y-3 text-sm text-[var(--color-ink)]">
+                <li>Ranked by results, not spend</li>
+                <li>Written after months on client work</li>
+                <li>Clear "who it's not for" sections</li>
+                <li>Real screenshots, real numbers</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- NEWSLETTER -->
+  <section id="newsletter">
+    <div class="max-w-6xl mx-auto px-6 pb-20 md:pb-32">
+      <div class="reveal relative overflow-hidden bg-[var(--color-ink)] text-white rounded-3xl px-8 py-12 md:px-14 md:py-16 flex flex-col md:flex-row items-start md:items-center justify-between gap-8">
+        <div class="absolute -top-24 -right-24 w-72 h-72 rounded-full opacity-30 blur-3xl" style="background: radial-gradient(circle, var(--color-accent), transparent 70%);"></div>
+        <div class="relative max-w-md">
+          <h2 class="font-display text-2xl md:text-3xl font-extrabold tracking-tight mb-3 text-balance">One honest tool verdict, every week.</h2>
+          <p class="text-white/65">No spam, no affiliate spam disguised as "news." Just what we're testing and whether it's worth your money.</p>
+        </div>
+        <form class="relative w-full md:w-auto flex flex-col sm:flex-row gap-3 shrink-0">
+          <input type="email" required placeholder="you@company.com"
+            class="px-4 py-3.5 rounded-full text-[var(--color-ink)] bg-white w-full sm:w-72 outline-none focus:ring-2 focus:ring-[var(--color-accent)] transition-shadow">
+          <button type="submit" class="btn-shine btn-press bg-[var(--color-accent)] hover:bg-[var(--color-accent-dark)] transition-colors font-semibold px-6 py-3.5 rounded-full whitespace-nowrap">Subscribe</button>
+        </form>
+      </div>
+    </div>
+  </section>
+
+  <!-- CLOSING CTA -->
+  <section class="relative overflow-hidden border-t border-[var(--color-line)]" id="closingCta">
+    <div class="field" aria-hidden="true">
+      <span class="glow g1" style="--depth:.45; width:26rem; height:26rem; top:-8rem; left:-6rem; opacity:.22;"></span>
+      <span class="glow g2" style="--depth:.3; width:24rem; height:24rem; top:-6rem; right:-6rem; opacity:.18;"></span>
+    </div>
+    <div class="reveal relative z-10 max-w-2xl mx-auto px-6 py-20 md:py-28 text-center">
+      <h2 class="font-display text-3xl md:text-5xl font-extrabold tracking-tight text-balance">Your next favorite tool is already reviewed.</h2>
+      <p class="mt-5 text-lg text-[var(--color-muted)] max-w-lg mx-auto">No sponsored placements, no vague verdicts — just hands-on reviews that tell you what's actually worth your budget.</p>
+      <div class="mt-9 flex flex-wrap items-center justify-center gap-4">
+        <a href="#reviews" class="btn-shine btn-press inline-flex items-center gap-2 bg-[var(--color-accent)] text-white font-semibold px-6 py-3.5 rounded-full hover:bg-[var(--color-accent-dark)] transition-colors shadow-[0_14px_30px_-14px_rgba(124,58,237,.65)]">
+          Browse Reviews <span class="arrow">→</span>
+        </a>
+        <a href="#newsletter" class="btn-press inline-flex items-center gap-2 font-semibold px-6 py-3.5 rounded-full bg-[var(--color-bg-soft)] hover:bg-[var(--color-line)] transition-colors">
+          Get Weekly Picks
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="border-t border-[var(--color-line)]">
+    <div class="max-w-6xl mx-auto px-6 py-12 grid sm:grid-cols-2 md:grid-cols-4 gap-8">
+      <div>
+        <div class="flex items-center gap-2.5 mb-3">
+          <span class="logo-mark"><span class="bar"></span><span class="bar"></span><span class="bar"></span></span>
+          <span class="font-display text-base font-extrabold">Toolbench</span>
+        </div>
+        <p class="text-sm text-[var(--color-muted)]">Hands-on reviews of marketing tools, by working SEO and growth practitioners.</p>
+      </div>
+      <div>
+        <div class="text-xs font-bold uppercase tracking-wider text-[var(--color-muted)] mb-3">Explore</div>
+        <ul class="space-y-2 text-sm text-[var(--color-muted)]">
+          <li><a href="#explore" class="hover:text-[var(--color-ink)]">Reviews</a></li>
+          <li><a href="#best" class="hover:text-[var(--color-ink)]">Best Tools</a></li>
+          <li><a href="#about" class="hover:text-[var(--color-ink)]">Methodology</a></li>
+        </ul>
+      </div>
+      <div>
+        <div class="text-xs font-bold uppercase tracking-wider text-[var(--color-muted)] mb-3">Company</div>
+        <ul class="space-y-2 text-sm text-[var(--color-muted)]">
+          <li><a href="#about" class="hover:text-[var(--color-ink)]">About Us</a></li>
+          <li><a href="#" class="hover:text-[var(--color-ink)]">Contact</a></li>
+        </ul>
+      </div>
+      <div>
+        <div class="text-xs font-bold uppercase tracking-wider text-[var(--color-muted)] mb-3">Legal</div>
+        <ul class="space-y-2 text-sm text-[var(--color-muted)]">
+          <li><a href="#" class="hover:text-[var(--color-ink)]">Privacy</a></li>
+          <li><a href="#" class="hover:text-[var(--color-ink)]">Terms</a></li>
+          <li><a href="#" class="hover:text-[var(--color-ink)]">Affiliate Disclosure</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="border-t border-[var(--color-line)] py-6 text-center text-xs text-[var(--color-muted)]">
+      © 2026 Toolbench. All reviews reflect our own testing and opinions.
+    </div>
+  </footer>
+
+  <script>
+    (function () {
+      var reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+      // Scroll reveal (below-fold)
+      var revealEls = document.querySelectorAll('.reveal');
+      if (reduced || !('IntersectionObserver' in window)) {
+        revealEls.forEach(function (el) { el.classList.add('is-in'); });
+      } else {
+        var io = new IntersectionObserver(function (entries) {
+          entries.forEach(function (entry) {
+            if (entry.isIntersecting) {
+              entry.target.classList.add('is-in');
+              io.unobserve(entry.target);
+            }
+          });
+        }, { threshold: 0.15, rootMargin: '0px 0px -40px 0px' });
+        revealEls.forEach(function (el) { io.observe(el); });
+      }
+
+      // Grade rings: fire on scroll into view
+      function drawRing(el) { el.style.setProperty('--pct', el.getAttribute('data-target')); }
+      var gridRings = document.querySelectorAll('#reviews .grade-ring');
+      if (reduced || !('IntersectionObserver' in window)) {
+        gridRings.forEach(drawRing);
+      } else {
+        var ringIo = new IntersectionObserver(function (entries) {
+          entries.forEach(function (entry) {
+            if (entry.isIntersecting) { drawRing(entry.target); ringIo.unobserve(entry.target); }
+          });
+        }, { threshold: 0.4 });
+        gridRings.forEach(function (el) { ringIo.observe(el); });
+      }
+
+      // Become Efficient: scroll-driven stacking cards, pinned heading
+      var stackArea = document.getElementById('stackArea');
+      var exploreRunway = document.getElementById('exploreRunway');
+      if (stackArea && exploreRunway) {
+        var stackLogos = ['ahrefs', 'semrush', 'surfer-seo', 'notion', 'convertkit', 'buzzstream', 'linear', 'motion'];
+        stackArea.innerHTML = stackLogos.map(function (slug, i) {
+          return '<div class="stack-tile" data-i="' + i + '" style="z-index:' + (10 + i) + '">' +
+            '<img src="assets/logos/' + slug + '.png" alt="" onerror="this.closest(\'.stack-tile\').remove()">' +
+          '</div>';
+        }).join('');
+
+        var stackCards = stackArea.querySelectorAll('.stack-tile');
+        var totalStacks = stackCards.length;
+
+        function restFor(i) {
+          var sign = i % 2 === 0 ? 1 : -1;
+          return {
+            x: i * 7 * sign,
+            y: i * 9,
+            rotateZ: i * 3 * sign,
+            rotateY: i * -4
+          };
+        }
+        function layoutStacks() {
+          if (reduced) {
+            stackCards.forEach(function (card, i) {
+              var r = restFor(i);
+              card.style.transform = 'perspective(1300px) translate(' + r.x + 'px,' + r.y + 'px) rotateY(' + r.rotateY + 'deg) rotateZ(' + r.rotateZ + 'deg)';
+              card.style.opacity = 1;
+            });
+            return;
+          }
+          var rect = exploreRunway.getBoundingClientRect();
+          var scrollable = rect.height - window.innerHeight;
+          var progress = scrollable > 0 ? Math.max(0, Math.min(1, -rect.top / scrollable)) : 0;
+          var bands = totalStacks - 1; // first tile is always at rest; the rest fall into place progressively
+          stackCards.forEach(function (card, i) {
+            var r = restFor(i);
+            var p = i === 0 ? 1 : Math.max(0, Math.min(1, (progress - (i - 1) / bands) / (1 / bands)));
+            var enterY = (1 - p) * 220;
+            var rotateX = (1 - p) * -55;
+            var scale = 0.78 + p * 0.22;
+            card.style.transform = 'perspective(1300px) translate(' + (r.x * p) + 'px,' + (r.y + enterY) + 'px) rotateX(' + rotateX + 'deg) rotateY(' + (r.rotateY * p) + 'deg) rotateZ(' + (r.rotateZ * p) + 'deg) scale(' + scale + ')';
+            card.style.opacity = Math.min(1, p * 1.8);
+          });
+        }
+
+        var stackRaf = null;
+        function queueLayout() {
+          if (stackRaf) return;
+          stackRaf = requestAnimationFrame(function () { stackRaf = null; layoutStacks(); });
+        }
+        window.addEventListener('scroll', queueLayout, { passive: true });
+        window.addEventListener('resize', queueLayout);
+        layoutStacks();
+      }
+
+      // Comparisons: two vertical app wheels, spinning on their own timer (not scroll-linked).
+      // Only the front tile is lit; its two neighbors fade; everything else stays hidden.
+      var orbitLeft = document.getElementById('orbitLeft');
+      var orbitRight = document.getElementById('orbitRight');
+      if (orbitLeft && orbitRight) {
+        var leftOrbitLogos = ['ahrefs', 'surfer-seo', 'convertkit', 'buzzstream', 'notion', 'motion'];
+        var rightOrbitLogos = ['semrush', 'clearscope', 'beehiiv', 'pitchbox', 'linear', 'cal'];
+        function buildRing(container, logos) {
+          container.innerHTML = logos.map(function (slug, i) {
+            return '<div class="orbit-logo" data-i="' + i + '"><img src="assets/logos/' + slug + '.png" alt="" onerror="this.parentElement.remove()"></div>';
+          }).join('');
+        }
+        buildRing(orbitLeft, leftOrbitLogos);
+        buildRing(orbitRight, rightOrbitLogos);
+
+        var leftOrbitTiles = orbitLeft.querySelectorAll('.orbit-logo');
+        var rightOrbitTiles = orbitRight.querySelectorAll('.orbit-logo');
+        var WHEEL_RADIUS = 92;
+
+        function layoutWheel(tiles, frontIndex) {
+          var n = tiles.length;
+          tiles.forEach(function (tile, i) {
+            var k = ((i - frontIndex) % n + n) % n;
+            if (k > n / 2) k -= n; // shortest signed step from the front tile
+            var absK = Math.abs(k);
+            var angle = k * (360 / n);
+            var rad = angle * Math.PI / 180;
+            var y = Math.sin(rad) * WHEEL_RADIUS;
+            var z = (Math.cos(rad) - 1) * WHEEL_RADIUS;
+            var opacity = absK === 0 ? 1 : absK === 1 ? 0.38 : 0;
+            var scale = absK === 0 ? 1 : absK === 1 ? 0.78 : 0.6;
+            tile.style.transform = 'translate3d(0,' + y.toFixed(1) + 'px,' + z.toFixed(1) + 'px) rotateX(' + (-angle).toFixed(1) + 'deg) scale(' + scale + ')';
+            tile.style.opacity = opacity;
+            tile.style.zIndex = 100 - absK;
+          });
+        }
+
+        var leftFront = 0, rightFront = 0;
+        function render() {
+          layoutWheel(leftOrbitTiles, leftFront);
+          layoutWheel(rightOrbitTiles, rightFront);
+        }
+        render();
+
+        if (!reduced) {
+          setInterval(function () {
+            leftFront = (leftFront + 1) % leftOrbitTiles.length;
+            rightFront = (rightFront - 1 + rightOrbitTiles.length) % rightOrbitTiles.length;
+            render();
+          }, 2000);
+        }
+      }
+
+      // Alternatives: pairs of logos that continuously swap sides — "compare, switch, repeat"
+      var altCluster = document.getElementById('altCluster');
+      if (altCluster) {
+        var swapPairs = [
+          ['telegram', 'gmail'],
+          ['copper', 'partnerstack'],
+          ['stripe', 'ramp'],
+          ['tidycal', 'savvycal']
+        ];
+        altCluster.innerHTML = swapPairs.map(function (pair, i) {
+          var dur = (4 + i * 0.3).toFixed(1);
+          var delay = (i * 0.35).toFixed(2);
+          return '<div class="swap-pair" style="--swap-dur:' + dur + 's; --swap-delay:' + delay + 's;">' +
+            '<div class="swap-tile left"><img src="assets/logos/' + pair[0] + '.png" alt="" onerror="this.parentElement.remove()"></div>' +
+            '<div class="swap-tile right"><img src="assets/logos/' + pair[1] + '.png" alt="" onerror="this.parentElement.remove()"></div>' +
+          '</div>';
+        }).join('');
+      }
+
+      // Hero backdrop: a large, muted field of app logos drifting behind the headline
+      var heroAppField = document.getElementById('heroAppField');
+      if (heroAppField) {
+        var heroFieldLogos = [
+          'ahrefs', 'semrush', 'surfer-seo', 'clearscope', 'convertkit', 'buzzstream', 'pitchbox', 'frase',
+          'claude', 'chatgpt', 'superhuman', 'beehiiv', 'granola', 'motion', 'notion', 'gmail',
+          'mercury', 'novo', 'stripe', 'postmark', 'opera', 'ramp', 'airwallex', 'bill',
+          'tidycal', 'savvycal', 'partnerstack', 'dub', 'copper', 'telegram', 'cal', 'linear'
+        ];
+        // Deterministic pseudo-random scatter (no real Math.random, so re-renders stay stable)
+        function seeded(n) { var x = Math.sin(n * 999.7) * 43758.5453; return x - Math.floor(x); }
+        heroAppField.innerHTML = heroFieldLogos.map(function (slug, i) {
+          var top = (seeded(i * 3 + 1) * 88).toFixed(1);
+          var left = (seeded(i * 3 + 2) * 92).toFixed(1);
+          var size = Math.round(30 + seeded(i * 3 + 3) * 20);
+          var rot = Math.round((seeded(i * 7 + 1) - 0.5) * 30);
+          var dur = (4.5 + seeded(i * 7 + 2) * 3).toFixed(1);
+          var delay = (seeded(i * 7 + 3) * 4).toFixed(2);
+          return '<div class="hero-app-logo" style="top:' + top + '%; left:' + left + '%; width:' + size + 'px; height:' + size + 'px; --hero-r:' + rot + 'deg; --hero-dur:' + dur + 's; --hero-delay:' + delay + 's;">' +
+            '<img src="assets/logos/' + slug + '.png" alt="" onerror="this.parentElement.remove()"></div>';
+        }).join('');
+      }
+
+      // Best Of showcase: liquid blob spotlight in the center, the rest of the tools sit at
+      // fixed spots around it in a ring, each spinning in place on its own axis. Click a tile
+      // and its spin stops as it swaps into the center; the loop keeps advancing automatically
+      // in the background either way, and the summary below always tracks center.
+      var spotlightStageEl = document.getElementById('spotlightStage');
+      if (spotlightStageEl) {
+        var spotlightCatPillEls = document.querySelectorAll('#bubbleCatPills .score-pill');
+        var spotlightName = document.getElementById('spotlightName');
+        var spotlightSummary = document.getElementById('spotlightSummary');
+        var spotlightFeatures = document.getElementById('spotlightFeatures');
+        var spotlightInfo = document.getElementById('spotlightInfo');
+        var spotlightStatComparisons = document.getElementById('statComparisons');
+        var spotlightStatLimitations = document.getElementById('statLimitations');
+        var spotlightStatPricing = document.getElementById('statPricing');
+        var spotlightOrbitEl = document.getElementById('spotlightOrbit');
+        var spotlightCenterImg = document.getElementById('spotlightLogo');
+
+        var spotlightCatalog = {
+          ai: [
+            { slug: 'chatgpt', name: 'ChatGPT', summary: 'Still the fastest way to draft, brainstorm, and rewrite — the one AI tool almost every team already has open. It handles everything from long-form writing to code, and the mobile app makes it just as useful on the go as at a desk. The free tier is generous, but heavy users hit rate limits fast.', features: ['Chat', 'Brainstorming', 'Drafting'], stats: { features: 8, comparisons: 12, limitations: 3, pricing: 3 } },
+            { slug: 'claude', name: 'Claude', summary: 'Careful, detailed writing and research without the fluff — fewer slip-ups on anything that requires actually reading the source material. The long context window means it can hold an entire codebase or contract in memory during a single conversation. Slower to chase trends than ChatGPT, but the one we trust with anything detailed.', features: ['Writing', 'Research', 'Long Context'], stats: { features: 7, comparisons: 10, limitations: 2, pricing: 3 } },
+            { slug: 'granola', name: 'Granola', summary: 'Quietly turns every call into clean, structured notes without a bot visibly joining the meeting. It blends your own typed notes with the transcript, so the output reads like something a human actually wrote. Not flashy — just genuinely useful every single day.', features: ['Meeting Notes', 'Transcripts', 'Summaries'], stats: { features: 6, comparisons: 6, limitations: 2, pricing: 2 } },
+            { slug: 'notion', name: 'Notion AI', summary: 'Turns your docs and wikis into a workspace that also writes, summarizes, and answers questions for you. It’s bolted onto an already excellent docs and database tool, so the AI features feel like a natural extension rather than a bolt-on. Pricing stacks on top of your existing Notion plan, which stings for larger teams.', features: ['Docs', 'AI Q&A', 'Wikis'], stats: { features: 9, comparisons: 11, limitations: 3, pricing: 4 } },
+            { slug: 'superhuman', name: 'Superhuman', summary: 'The fastest email client we’ve used, built around AI triage so your inbox stops running your day. Keyboard shortcuts for everything mean you can burn through a hundred emails in the time Gmail takes to load ten. It’s a layer on top of Gmail or Outlook, so you keep your existing provider underneath.', features: ['AI Triage', 'Speed', 'Inbox Zero'], stats: { features: 7, comparisons: 10, limitations: 2, pricing: 4 } }
+          ],
+          email: [
+            { slug: 'convertkit', name: 'ConvertKit', summary: 'Creator-first email that doesn’t punish you for growing a list. Automations are visual and genuinely easy to finish, not just easy to start, and the free tier is one of the more usable ones in the category. Landing pages and forms are basic compared to dedicated builders, but that’s not really the point.', features: ['Automations', 'Landing Pages', 'Segments'], stats: { features: 8, comparisons: 9, limitations: 3, pricing: 3 } },
+            { slug: 'beehiiv', name: 'Beehiiv', summary: 'The newsletter platform worth actually switching to if you’re serious about publishing. Built-in monetization, referral programs, and analytics that go deeper than open rates make it feel built by people who’ve actually run a newsletter business. Automation is thinner than ConvertKit’s if that’s your main use case.', features: ['Newsletters', 'Analytics', 'Monetization'], stats: { features: 7, comparisons: 8, limitations: 2, pricing: 3 } },
+            { slug: 'postmark', name: 'Postmark', summary: 'Built for transactional email — password resets, receipts, notifications — and deliverability is excellent because it’s all Postmark does. It intentionally blocks bulk marketing sends to protect sender reputation, a feature until you try to use it for a newsletter. The API and logs are some of the cleanest in the category.', features: ['Deliverability', 'Transactional', 'API'], stats: { features: 6, comparisons: 5, limitations: 2, pricing: 2 } },
+            { slug: 'gmail', name: 'Gmail', summary: 'The default for a reason — reliable, familiar, and the one every integration on the planet already supports out of the box. Search is still best-in-class, and the free tier comfortably covers most individuals. It’s not built for serious sending volume or the automation the tools above offer.', features: ['Inbox', 'Integrations', 'Free Tier'], stats: { features: 6, comparisons: 7, limitations: 3, pricing: 2 } }
+          ],
+          social: [
+            { slug: 'buffer', name: 'Buffer', summary: 'Simple scheduling that doesn’t get in the way. Best fit for small teams posting a few times a day who want a clean queue and straightforward analytics without a steep learning curve. It thins out fast once you need approvals or heavier team workflows.', features: ['Scheduling', 'Analytics', 'Multi-Channel'], stats: { features: 6, comparisons: 8, limitations: 2, pricing: 3 } },
+            { slug: 'later', name: 'Later', summary: 'Visual-first scheduling built around Instagram and TikTok that makes planning a grid actually enjoyable. The drag-and-drop preview is the best in the category if visual platforms are your main channel. Support for text-heavy networks like X and LinkedIn feels like an afterthought.', features: ['Visual Planner', 'Instagram', 'TikTok'], stats: { features: 7, comparisons: 9, limitations: 3, pricing: 3 }, ext: '.ico' },
+            { slug: 'hootsuite', name: 'Hootsuite', summary: 'Handles more channels, approvals, and team seats than most teams need — powerful once you actually grow into it. The dashboard is dense and pricing scales aggressively, so it’s overkill for a solo creator or a two-person team. Worth it the moment you have a real approval chain to manage.', features: ['Multi-Channel', 'Approvals', 'Reporting'], stats: { features: 9, comparisons: 11, limitations: 4, pricing: 4 } },
+            { slug: 'telegram', name: 'Telegram', summary: 'Not a scheduler, but the channel and broadcast tools make it a serious community and audience play outside the usual social stack. Bots and a real API give you automation most platforms don’t offer natively. It’s a different kind of distribution channel, not a replacement for Buffer or Later.', features: ['Channels', 'Broadcasts', 'Communities'], stats: { features: 5, comparisons: 4, limitations: 3, pricing: 1 } },
+            { slug: 'dub', name: 'Dub', summary: 'Short links with real click analytics — handy for tracking what your social posts are actually driving, not just vanity engagement numbers. Custom domains and UTM handling are built in, which most link shorteners charge extra for. It’s a supporting tool, not a full social suite.', features: ['Short Links', 'Analytics', 'Retargeting'], stats: { features: 6, comparisons: 6, limitations: 2, pricing: 3 } }
+          ],
+          planning: [
+            { slug: 'motion', name: 'Motion', summary: 'Auto-schedules your day around real deadlines, dragging and re-slotting tasks as things shift instead of leaving you to reshuffle manually. It takes real getting used to — the AI planner can feel aggressive at first — but once it clicks, you genuinely can’t go back. Pricing is steep for solo users compared to the rest of the category.', features: ['AI Scheduling', 'Tasks', 'Calendar'], stats: { features: 8, comparisons: 10, limitations: 3, pricing: 2 } },
+            { slug: 'cal', name: 'Cal.com', summary: 'Open-source scheduling that plugs into everything, including your own infrastructure if you want to self-host it. It’s the one we’d pick if you want full control over booking flows, branding, and data. The interface is less polished than Calendly’s, but nothing beats it for flexibility.', features: ['Booking Pages', 'Integrations', 'Open Source'], stats: { features: 9, comparisons: 9, limitations: 2, pricing: 4 } },
+            { slug: 'tidycal', name: 'Tidycal', summary: 'A lighter, cheaper booking page for teams that don’t need Cal’s full flexibility. A one-time payment instead of a subscription makes it an easy pick for solo founders and freelancers who just need a clean scheduling link. Integrations are thinner than the bigger players.', features: ['Booking Pages', 'Simple Setup'], stats: { features: 5, comparisons: 5, limitations: 3, pricing: 2 } },
+            { slug: 'savvycal', name: 'SavvyCal', summary: 'Scheduling that lets the other person pick a time without ten emails back and forth — a nicer Calendly, mainly because of how the overlay links work inside your existing calendar invites. It’s less well-known, so fewer of your contacts will already recognize the interface. Genuinely thoughtful design throughout.', features: ['Scheduling', 'Overlay Links', 'Simple UI'], stats: { features: 7, comparisons: 7, limitations: 2, pricing: 3 } },
+            { slug: 'linear', name: 'Linear', summary: 'Built for planning work with actual rigor — cycles, roadmaps, and issues that don’t rot in a backlog nobody opens. Keyboard-first navigation makes triage fast once you learn the shortcuts, and the roadmap view is one of the best for engineering teams. It’s overkill if you just need a simple to-do list.', features: ['Issues', 'Cycles', 'Roadmaps'], stats: { features: 10, comparisons: 12, limitations: 2, pricing: 3 } }
+          ]
+        };
+
+        var spotlightCurrentCat = 'ai';
+        var spotlightOrder = []; // order[0] = center, order[1..] = ring tiles (index i -> ring slot i-1)
+        var spotlightRingImgs = [];
+        var spotlightRingEls = [];
+        var spotlightLoopTimer = null;
+
+        function spotlightLogoSrc(tool) { return 'assets/logos/' + tool.slug + (tool.ext || '.png'); }
+
+        function buildSpotlightRing() {
+          var items = spotlightCatalog[spotlightCurrentCat];
+          var ringCount = items.length - 1;
+          spotlightOrbitEl.innerHTML = '';
+          spotlightRingImgs = [];
+          spotlightRingEls = [];
+          for (var i = 0; i < ringCount; i++) {
+            var angle = (360 / ringCount) * i - 90;
+            var btn = document.createElement('button');
+            btn.type = 'button';
+            btn.className = 'orbit-item';
+            btn.setAttribute('aria-label', 'Tool');
+            btn.style.transform = 'rotate(' + angle + 'deg) translateX(140px)';
+            var inner = document.createElement('span');
+            inner.className = 'orbit-item-inner';
+            inner.style.animationDelay = (-(angle / 360) * 14) + 's';
+            var floatWrap = document.createElement('span');
+            floatWrap.className = 'orbit-item-float';
+            floatWrap.style.animationDelay = (i * 0.45) + 's';
+            var img = document.createElement('img');
+            img.alt = '';
+            floatWrap.appendChild(img);
+            inner.appendChild(floatWrap);
+            btn.appendChild(inner);
+            spotlightOrbitEl.appendChild(btn);
+            spotlightRingImgs.push(img);
+            spotlightRingEls.push(btn);
+            btn.addEventListener('click', (function (idx) {
+              return function () { spotlightSelectRing(idx); };
+            })(i));
+          }
+        }
+
+        function spotlightToolFor(ringIdx) {
+          var items = spotlightCatalog[spotlightCurrentCat];
+          if (ringIdx == null) return items[spotlightOrder[0]];
+          return items[spotlightOrder[ringIdx + 1]];
+        }
+
+        function paintSpotlightSlots(instant) {
+          var tasks = [{ img: spotlightCenterImg, tool: spotlightToolFor(null), isCenter: true }];
+          spotlightRingImgs.forEach(function (img, i) {
+            tasks.push({ img: img, tool: spotlightToolFor(i), isCenter: false });
+          });
+          tasks.forEach(function (t) {
+            if (instant || reduced) {
+              t.img.src = spotlightLogoSrc(t.tool);
+              t.img.alt = t.tool.name;
+              if (t.isCenter) updateSpotlightInfo();
+              return;
+            }
+            t.img.classList.add('swap');
+            setTimeout(function () {
+              t.img.src = spotlightLogoSrc(t.tool);
+              t.img.alt = t.tool.name;
+              t.img.classList.remove('swap');
+              if (t.isCenter) updateSpotlightInfo();
+            }, 220);
+          });
+        }
+
+        var spotlightSelected = false;
+        function updateSpotlightInfo() {
+          var tool = spotlightToolFor(null);
+          spotlightName.textContent = tool.name;
+          spotlightSummary.textContent = tool.summary;
+          spotlightFeatures.innerHTML = tool.features.map(function (f) {
+            return '<span class="spotlight-feature-chip">' + f + '</span>';
+          }).join('');
+          spotlightStatComparisons.textContent = tool.stats.comparisons + ' head-to-head comparisons';
+          spotlightStatLimitations.textContent = tool.stats.limitations + ' known limitations';
+          spotlightStatPricing.textContent = tool.stats.pricing + ' pricing tiers';
+          if (spotlightSelected) spotlightInfo.classList.add('show');
+        }
+
+        function startSpotlightLoop() {
+          stopSpotlightLoop();
+          if (reduced) return;
+          spotlightLoopTimer = setInterval(function () {
+            spotlightOrder.push(spotlightOrder.shift());
+            paintSpotlightSlots(false);
+          }, 3200);
+        }
+        function stopSpotlightLoop() {
+          if (spotlightLoopTimer) { clearInterval(spotlightLoopTimer); spotlightLoopTimer = null; }
+        }
+
+        // Clicking a ring tile stops the whole ring's rotation, then swaps it into the center slot.
+        function spotlightSetOrbitPaused(paused) {
+          spotlightOrbitEl.classList.toggle('paused', paused);
+          spotlightRingImgs.forEach(function (img) {
+            img.closest('.orbit-item-inner').classList.toggle('paused', paused);
+          });
+        }
+        function spotlightSelectRing(idx) {
+          spotlightSetOrbitPaused(true);
+          stopSpotlightLoop();
+          setTimeout(function () {
+            var ringPos = idx + 1;
+            var centerVal = spotlightOrder[0];
+            spotlightOrder[0] = spotlightOrder[ringPos];
+            spotlightOrder[ringPos] = centerVal;
+            spotlightSelected = true;
+            paintSpotlightSlots(false);
+            // Selecting a tool stops the ring for good — no auto-resume.
+          }, reduced ? 0 : 180);
+        }
+
+        function switchSpotlightCategory(cat) {
+          spotlightCurrentCat = cat;
+          spotlightOrder = spotlightCatalog[cat].map(function (_, i) { return i; });
+          spotlightSelected = false;
+          spotlightInfo.classList.remove('show');
+          buildSpotlightRing();
+          paintSpotlightSlots(true);
+          spotlightSetOrbitPaused(false);
+          startSpotlightLoop();
+        }
+
+        spotlightCatPillEls.forEach(function (pill) {
+          pill.addEventListener('click', function () {
+            spotlightCatPillEls.forEach(function (p) { p.classList.toggle('active', p === pill); });
+            switchSpotlightCategory(pill.getAttribute('data-cat'));
+          });
+        });
+
+        switchSpotlightCategory('ai');
+      }
+
+      // Hero search: jumps straight to the Best Of showcase
+      var heroSearchForm = document.getElementById('heroSearchForm');
+      var heroSearchInput = document.getElementById('heroSearchInput');
+      if (heroSearchForm) {
+        function routeSearch() {
+          var target = document.getElementById('best');
+          if (target) target.scrollIntoView({ behavior: reduced ? 'auto' : 'smooth', block: 'start' });
+        }
+        heroSearchForm.addEventListener('submit', function (e) {
+          e.preventDefault();
+          routeSearch();
+        });
+      }
+
+      // Review pill marquee: icon + name + verdict + badge, built from real review data
+      var pillTrack = document.getElementById('reviewPillTrack');
+      if (pillTrack) {
+        var pillData = [
+          { slug: 'ahrefs', name: 'Ahrefs', grade: 'A' },
+          { slug: 'surfer-seo', name: 'Surfer SEO', grade: 'A' },
+          { slug: 'semrush', name: 'Semrush', grade: 'B' },
+          { slug: 'clearscope', name: 'Clearscope', grade: 'B' },
+          { slug: 'pitchbox', name: 'Pitchbox', grade: 'A' },
+          { slug: 'convertkit', name: 'ConvertKit', grade: 'A' },
+          { slug: 'buzzstream', name: 'BuzzStream', grade: 'B' },
+          { slug: 'frase', name: 'Frase', grade: 'A' }
+        ];
+        var pillHtml = '';
+        for (var pRep = 0; pRep < 2; pRep++) {
+          pillData.forEach(function (d) {
+            pillHtml += '<div class="review-pill">' +
+              '<div class="rp-icon"><img src="assets/logos/' + d.slug + '.png" alt="" onerror="this.remove()"></div>' +
+              '<div><div class="rp-name">' + d.name + '</div><div class="rp-sub">App review · Grade ' + d.grade + '</div></div>' +
+              '<svg class="rp-badge" viewBox="0 0 24 24" fill="none" aria-hidden="true"><circle cx="12" cy="12" r="10" fill="currentColor" opacity=".15"></circle><path d="M8 12.5l2.5 2.5L16 9" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path></svg>' +
+              '</div>';
+          });
+        }
+        pillTrack.innerHTML = pillHtml;
+      }
+
+      // Deals carousel: seamless infinite slideshow, tilted screenshots, fully automatic
+      var dealsTrack = document.getElementById('dealsTrack');
+      if (dealsTrack) {
+        var dealDataOriginal = [
+          { slug: 'ahrefs', name: 'Ahrefs', cat: 'SEO Suite', img: 'assets/deals/ahrefs.png', gradient: 'linear-gradient(135deg, #7C3AED, #3B2A66)' },
+          { slug: 'surfer-seo', name: 'Surfer SEO', cat: 'Content Tool', img: 'assets/deals/surfer-seo.jpg', gradient: 'linear-gradient(135deg, #B7791F, #6B4A16)' },
+          { slug: 'semrush', name: 'Semrush', cat: 'SEO Suite', img: 'assets/deals/semrush.jpg', gradient: 'linear-gradient(135deg, #FF7A1A, #7A3A0A)' },
+          { slug: 'convertkit', name: 'ConvertKit', cat: 'Email Tool', img: 'assets/deals/convertkit.jpg', gradient: 'linear-gradient(135deg, #0B0D12, #3A3F4C)' },
+          { slug: 'buzzstream', name: 'BuzzStream', cat: 'Outreach Tool', img: 'assets/deals/buzzstream.png', gradient: 'linear-gradient(135deg, #16A34A, #0B3B1F)' },
+          { slug: 'notion', name: 'Notion', cat: 'Content Ops', img: 'assets/deals/notion.jpg', gradient: 'linear-gradient(135deg, #0B0D12, #3A3F4C)' },
+          { slug: 'linear', name: 'Linear', cat: 'Project Tool', img: 'assets/deals/linear.jpg', gradient: 'linear-gradient(135deg, #5B6472, #0B0D12)' },
+          { slug: 'motion', name: 'Motion', cat: 'Planning Tool', img: 'assets/deals/motion.png', gradient: 'linear-gradient(135deg, #3B82F6, #1E3A8A)' },
+          { slug: 'cal', name: 'Cal.com', cat: 'Scheduling Tool', img: 'assets/deals/cal.png', gradient: 'linear-gradient(135deg, #16A34A, #0B3B1F)' },
+          { slug: 'granola', name: 'Granola', cat: 'AI Notes', img: 'assets/deals/granola.jpg', gradient: 'linear-gradient(135deg, #B7791F, #6B4A16)' }
+        ];
+        var N = dealDataOriginal.length;
+        // Triple the set (clone-before + original + clone-after) so the track can be pushed
+        // endlessly in either direction; boundaries are masked with a silent, un-animated snap.
+        var dealData = dealDataOriginal.concat(dealDataOriginal).concat(dealDataOriginal);
+
+        dealsTrack.innerHTML = dealData.map(function (d) {
+          var visual = d.img
+            ? '<img src="' + d.img + '" alt="' + d.name + '" class="deal-shot-img" onerror="this.parentElement.classList.add(\'deal-shot-fallback\');this.remove()">'
+            : '<div class="mock-shot" style="height:100%">' +
+                '<div class="dots"><span></span><span></span><span></span></div>' +
+                '<div class="bars"><span style="width:60%"></span><span style="width:38%"></span></div>' +
+                '<div class="chartbars"><span style="height:16px"></span><span style="height:28px"></span><span style="height:20px"></span><span style="height:34px"></span></div>' +
+              '</div>';
+          return '<div class="deal-card">' +
+            '<div class="deal-shot' + (d.img ? '' : ' deal-shot-fallback') + '" style="background:' + d.gradient + '">' +
+              visual +
+            '</div>' +
+            '<div class="deal-info">' +
+              '<img src="assets/logos/' + d.slug + '.png" alt="" onerror="this.remove()">' +
+              '<div class="min-w-0"><div class="font-display font-bold text-sm truncate">' + d.name + '</div><div class="text-xs text-[var(--color-muted)]">' + d.cat + ' · 1 deal</div></div>' +
+            '</div>' +
+          '</div>';
+        }).join('');
+
+        var dealsDots = document.getElementById('dealsDots');
+        var dealCards = dealsTrack.querySelectorAll('.deal-card');
+        dealsDots.innerHTML = dealDataOriginal.map(function (_, i) {
+          return '<button type="button" class="deal-dot' + (i === 0 ? ' active' : '') + '" data-i="' + i + '" aria-label="Go to deal ' + (i + 1) + '"></button>';
+        }).join('');
+        var dotEls = dealsDots.querySelectorAll('.deal-dot');
+        var dealsViewport = document.querySelector('#dealsCarousel .deals-viewport');
+
+        var trackIndex = N; // start on the first card of the middle (real) copy
+        function applyTransform(ti, instant) {
+          var card = dealCards[ti];
+          var viewportWidth = dealsViewport.clientWidth;
+          var cardCenter = card.offsetLeft + card.offsetWidth / 2;
+          if (instant) dealsTrack.style.transition = 'none';
+          dealsTrack.style.transform = 'translateX(' + (viewportWidth / 2 - cardCenter) + 'px)';
+          if (instant) { void dealsTrack.offsetWidth; dealsTrack.style.transition = ''; }
+        }
+        function markActive(ti) {
+          var dotIndex = ((ti - N) % N + N) % N;
+          dotEls.forEach(function (dot, i) { dot.classList.toggle('active', i === dotIndex); });
+          dealCards.forEach(function (card, i) {
+            card.classList.toggle('is-active', i === ti);
+            var shot = card.querySelector('.deal-shot');
+            if (!shot) return;
+            var dist = Math.max(-3, Math.min(3, i - ti));
+            var rotateY = dist * -18;
+            var scale = 1 - Math.abs(dist) * 0.09;
+            var opacity = Math.max(0.18, 1 - Math.abs(dist) * 0.3);
+            var arcY = Math.abs(dist) * Math.abs(dist) * 9; // dips down on both sides, like riding a circular rail
+            var arcRotate = dist * 2.5; // slight roll into the curve, reinforcing the loop feel
+            shot.style.transform = 'perspective(1100px) translateY(' + arcY + 'px) rotateY(' + rotateY + 'deg) rotate(' + arcRotate + 'deg) scale(' + scale + ')';
+            shot.style.opacity = opacity;
+          });
+        }
+        var snapTimer = null;
+        function goTo(ti, animate) {
+          trackIndex = ti;
+          if (!animate) {
+            // Snapping the clone back to the real copy must be invisible: freeze every
+            // card's own transition too, or they'll visibly re-shuffle to their new
+            // distance-from-center values the instant trackIndex jumps by N.
+            dealCards.forEach(function (card) {
+              var shot = card.querySelector('.deal-shot');
+              if (shot) shot.style.transition = 'none';
+            });
+          }
+          markActive(ti);
+          applyTransform(ti, !animate);
+          if (!animate) {
+            dealCards.forEach(function (card) {
+              var shot = card.querySelector('.deal-shot');
+              if (shot) void shot.offsetWidth;
+            });
+            dealCards.forEach(function (card) {
+              var shot = card.querySelector('.deal-shot');
+              if (shot) shot.style.transition = '';
+            });
+          }
+          clearTimeout(snapTimer);
+          if (animate) {
+            snapTimer = setTimeout(function () {
+              if (trackIndex >= 2 * N) goTo(trackIndex - N, false);
+              else if (trackIndex < N) goTo(trackIndex + N, false);
+            }, 680);
+          }
+        }
+        function step(delta) { goTo(trackIndex + delta, true); }
+
+        dotEls.forEach(function (dot) {
+          dot.addEventListener('click', function () {
+            goTo(N + parseInt(dot.getAttribute('data-i'), 10), true);
+            restartAutoplay();
+          });
+        });
+        var dealsPrev = document.getElementById('dealsPrev');
+        var dealsNext = document.getElementById('dealsNext');
+        if (dealsPrev) dealsPrev.addEventListener('click', function () { step(-1); restartAutoplay(); });
+        if (dealsNext) dealsNext.addEventListener('click', function () { step(1); restartAutoplay(); });
+        window.addEventListener('resize', function () { applyTransform(trackIndex, true); });
+
+        // Fully automatic slideshow: advances on its own, pauses only on direct interaction
+        var dealsCarousel = document.getElementById('dealsCarousel');
+        var autoplayTimer = null;
+        function stopAutoplay() { if (autoplayTimer) { clearInterval(autoplayTimer); autoplayTimer = null; } }
+        function startAutoplay() {
+          if (reduced || !dealsCarousel) return;
+          stopAutoplay();
+          autoplayTimer = setInterval(function () { step(1); }, 3200);
+        }
+        function restartAutoplay() { stopAutoplay(); startAutoplay(); }
+        if (dealsCarousel) {
+          dealsCarousel.addEventListener('mouseenter', stopAutoplay);
+          dealsCarousel.addEventListener('mouseleave', startAutoplay);
+          dealsCarousel.addEventListener('touchstart', stopAutoplay, { passive: true });
+          dealsCarousel.addEventListener('focusin', stopAutoplay);
+          dealsCarousel.addEventListener('focusout', startAutoplay);
+        }
+        goTo(N, false);
+        startAutoplay();
+      }
+
+      // Aurora glows: drift on their own, lean gently toward the cursor
+      var heroEl = document.getElementById('hero');
+      var glows = document.querySelectorAll('#hero .field .glow');
+      if (heroEl && glows.length && !reduced && window.matchMedia('(hover: hover)').matches) {
+        var glowRaf = null, gx = null, gy = null;
+        function applyGlowShift() {
+          glowRaf = null;
+          glows.forEach(function (g) {
+            var depth = parseFloat(g.style.getPropertyValue('--depth')) || 0.4;
+            g.style.translate = (gx * 40 * depth).toFixed(1) + 'px ' + (gy * 40 * depth).toFixed(1) + 'px';
+          });
+        }
+        heroEl.addEventListener('mousemove', function (e) {
+          var r = heroEl.getBoundingClientRect();
+          gx = ((e.clientX - r.left) / r.width - 0.5) * 2;
+          gy = ((e.clientY - r.top) / r.height - 0.5) * 2;
+          if (!glowRaf) glowRaf = requestAnimationFrame(applyGlowShift);
+        });
+        heroEl.addEventListener('mouseleave', function () {
+          glows.forEach(function (g) { g.style.translate = '0px 0px'; });
+        });
+      }
+
+      // Search: filter review cards live
+      var searchInput = document.getElementById('searchInput');
+      if (searchInput) {
+        var searchCards = document.querySelectorAll('#reviews .stagger > a');
+        searchInput.addEventListener('input', function () {
+          var q = searchInput.value.trim().toLowerCase();
+          searchCards.forEach(function (card) {
+            var name = (card.querySelector('h3').textContent || '').toLowerCase();
+            var cat = (card.querySelector('.mb-0\\.5').textContent || '').toLowerCase();
+            var match = !q || name.indexOf(q) !== -1 || cat.indexOf(q) !== -1;
+            card.style.display = match ? '' : 'none';
+          });
+        });
+        searchInput.addEventListener('keydown', function (e) {
+          if (e.key === 'Enter') document.getElementById('reviews').scrollIntoView({ behavior: reduced ? 'auto' : 'smooth' });
+        });
+      }
+
+      // Card tilt on pointer move (premium micro-interaction)
+      if (!reduced && window.matchMedia('(hover: hover)').matches) {
+        document.querySelectorAll('.tilt').forEach(function (card) {
+          card.addEventListener('mousemove', function (e) {
+            var r = card.getBoundingClientRect();
+            var x = (e.clientX - r.left) / r.width - 0.5;
+            var y = (e.clientY - r.top) / r.height - 0.5;
+            card.style.transform = 'perspective(700px) rotateX(' + (-y * 5) + 'deg) rotateY(' + (x * 5) + 'deg) translateY(-4px)';
+          });
+          card.addEventListener('mouseleave', function () { card.style.transform = ''; });
+        });
+      }
+    })();
+  </script>
+
+</body>
+</html>
