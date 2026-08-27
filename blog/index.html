@@ -95,32 +95,49 @@
     .hero-in { opacity: 0; transform: translateY(14px); animation: heroIn .75s cubic-bezier(.16,1,.3,1) forwards; }
     @keyframes heroIn { to { opacity: 1; transform: translateY(0); } }
 
-    /* ---------- Header: dark smoked glass, so it reads against the light page ---------- */
-    .site-header { position: sticky;
-      background: linear-gradient(to bottom, rgba(13,16,24,.86), rgba(13,16,24,.74));
-      backdrop-filter: blur(18px) saturate(180%); -webkit-backdrop-filter: blur(18px) saturate(180%);
-      border-bottom: 1px solid rgba(255,255,255,.09);
-      box-shadow: 0 1px 0 rgba(255,255,255,.07) inset;
-      transition: background .3s ease, border-color .3s ease, box-shadow .3s ease; }
-    /* Thin sheen along the bottom edge — the "gloss" catch-light */
-    .site-header::after { content:""; position:absolute; left:0; right:0; bottom:0; height:1px; pointer-events:none;
-      background: linear-gradient(90deg, transparent, rgba(255,255,255,.22), transparent); }
-    .site-header.scrolled { background: linear-gradient(to bottom, rgba(13,16,24,.95), rgba(13,16,24,.9));
-      border-bottom-color: rgba(255,255,255,.12);
-      box-shadow: 0 1px 0 rgba(255,255,255,.08) inset, 0 12px 32px -20px rgba(0,0,0,.65); }
+    /* ---------- Header: a floating capsule that hovers over the page ---------- */
+    /* The bar itself is just a transparent gutter; only the island is visible, so
+       pointer-events are re-enabled on the island alone. */
+    .site-header { padding: .9rem 1rem; pointer-events: none; }
+    .nav-island { pointer-events: auto; width: max-content; max-width: 100%; margin: 0 auto;
+      display: flex; align-items: center; gap: .5rem;
+      padding: .4rem .5rem .4rem .85rem; border-radius: 9999px;
+      background: linear-gradient(to bottom, rgba(17,20,30,.9), rgba(11,13,20,.82));
+      backdrop-filter: blur(20px) saturate(180%); -webkit-backdrop-filter: blur(20px) saturate(180%);
+      border: 1px solid rgba(255,255,255,.1);
+      box-shadow: 0 1px 0 rgba(255,255,255,.09) inset, 0 14px 38px -16px rgba(0,0,0,.55);
+      transition: box-shadow .35s ease, background .35s ease, border-color .35s ease; }
+    .site-header.scrolled .nav-island {
+      background: linear-gradient(to bottom, rgba(17,20,30,.96), rgba(11,13,20,.92));
+      border-color: rgba(255,255,255,.14);
+      box-shadow: 0 1px 0 rgba(255,255,255,.1) inset, 0 18px 44px -16px rgba(0,0,0,.7); }
 
-    /* Brand + controls flip to light-on-dark inside the bar */
-    .site-header .brand-name { color: #fff; }
-    .site-header .logo-mark { background: rgba(255,255,255,.13); border: 1px solid rgba(255,255,255,.18); }
-    .site-header .nav-toggle { color: #fff; }
-    .site-header .nav-toggle:hover { background: rgba(255,255,255,.12); }
-    #mobileNav a { color: rgba(255,255,255,.75); }
-    #mobileNav a:hover { color: #fff; }
+    .nav-brand { display: flex; align-items: center; gap: .55rem; flex-shrink: 0; }
+    .nav-brand .brand-name { color: #fff; }
+    .nav-brand .logo-mark { width: 1.6rem; height: 1.6rem; border-radius: .5rem;
+      background: rgba(255,255,255,.13); border: 1px solid rgba(255,255,255,.18); }
+    .nav-divider { width: 1px; height: 1.15rem; flex-shrink: 0;
+      background: linear-gradient(to bottom, transparent, rgba(255,255,255,.2), transparent); }
 
-    /* Absolutely centered so the links sit on the true middle of the bar,
-       independent of how wide the logo is. */
-    .nav-group { position: absolute; left: 50%; transform: translateX(-50%);
-      align-items: center; gap: .25rem; }
+    .nav-group { align-items: center; gap: .1rem; }
+
+    .nav-toggle { width: 2.1rem; height: 2.1rem; display: flex; align-items: center; justify-content: center;
+      border: 0; border-radius: 9999px; background: transparent; color: #fff; cursor: pointer;
+      transition: background .2s ease; }
+    .nav-toggle:hover { background: rgba(255,255,255,.12); }
+
+    /* Mobile menu hangs below the island as its own floating card */
+    .nav-drop { pointer-events: auto; width: max-content; min-width: 13rem; margin: .55rem auto 0;
+      padding: .45rem; border-radius: 1.25rem;
+      background: linear-gradient(to bottom, rgba(17,20,30,.96), rgba(11,13,20,.94));
+      backdrop-filter: blur(20px) saturate(180%); -webkit-backdrop-filter: blur(20px) saturate(180%);
+      border: 1px solid rgba(255,255,255,.12);
+      box-shadow: 0 1px 0 rgba(255,255,255,.08) inset, 0 18px 40px -16px rgba(0,0,0,.65); }
+    .nav-drop a { display: block; padding: .6rem .9rem; border-radius: .8rem;
+      font-size: .875rem; font-weight: 600; color: rgba(255,255,255,.75);
+      transition: background .18s ease, color .18s ease; }
+    .nav-drop a:hover { background: rgba(255,255,255,.09); color: #fff; }
+    .nav-drop a.is-current { color: #fff; background: rgba(255,255,255,.08); }
 
     /* ---------- Hero search ---------- */
     .site-search { position: relative; }
@@ -213,11 +230,14 @@
 
   <!-- NAV -->
   <header class="site-header sticky top-0 z-40" id="siteHeader">
-    <div class="relative max-w-6xl mx-auto px-6 h-20 flex items-center gap-4">
-      <a href="/" class="flex items-center gap-2.5 shrink-0">
+    <div class="nav-island">
+      <a href="/" class="nav-brand">
         <span class="logo-mark"><span class="bar"></span><span class="bar"></span><span class="bar"></span></span>
-        <span class="brand-name font-display text-lg font-extrabold tracking-tight">Toolbench</span>
+        <span class="brand-name font-display text-base font-extrabold tracking-tight">Toolbench</span>
       </a>
+
+      <span class="nav-divider" aria-hidden="true"></span>
+
       <nav class="nav-group hidden md:flex" aria-label="Primary">
         <a href="/" class="nav-link">Home</a>
         <a href="/#deals" class="nav-link">Deals</a>
@@ -227,19 +247,19 @@
         <a href="/#about" class="nav-link">About</a>
       </nav>
 
-      <button type="button" id="navToggle" class="nav-toggle md:hidden w-10 h-10 -mr-2 ml-auto flex items-center justify-center rounded-full transition-colors" aria-label="Toggle navigation menu" aria-expanded="false" aria-controls="mobileNav">
-        <svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M4 7h16M4 12h16M4 17h16" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+      <button type="button" id="navToggle" class="nav-toggle md:hidden" aria-label="Toggle navigation menu" aria-expanded="false" aria-controls="mobileNav">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M4 7h16M4 12h16M4 17h16" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
       </button>
     </div>
 
-    <div id="mobileNav" class="md:hidden hidden border-t border-white/10 bg-[#0D1018]/95 backdrop-blur-xl">
-      <nav class="max-w-6xl mx-auto px-6 py-3 flex flex-col" aria-label="Mobile">
-        <a href="/" class="py-2.5 text-sm font-semibold text-[var(--color-muted)] hover:text-[var(--color-ink)] transition-colors">Home</a>
-        <a href="/#deals" class="py-2.5 text-sm font-semibold text-[var(--color-muted)] hover:text-[var(--color-ink)] transition-colors">Deals</a>
-        <a href="/#explore" class="py-2.5 text-sm font-semibold text-[var(--color-muted)] hover:text-[var(--color-ink)] transition-colors">Reviews</a>
-        <a href="/#best" class="py-2.5 text-sm font-semibold text-[var(--color-muted)] hover:text-[var(--color-ink)] transition-colors">Best Tools</a>
-        <a href="/blog/" class="py-2.5 text-sm font-semibold text-[var(--color-ink)]" aria-current="page">Blog</a>
-        <a href="/#about" class="py-2.5 text-sm font-semibold text-[var(--color-muted)] hover:text-[var(--color-ink)] transition-colors">About</a>
+    <div id="mobileNav" class="nav-drop md:hidden hidden">
+      <nav class="flex flex-col" aria-label="Mobile">
+        <a href="/">Home</a>
+        <a href="/#deals">Deals</a>
+        <a href="/#explore">Reviews</a>
+        <a href="/#best">Best Tools</a>
+        <a href="/blog/" class="is-current" aria-current="page">Blog</a>
+        <a href="/#about">About</a>
       </nav>
     </div>
   </header>
