@@ -141,7 +141,10 @@
     .nav-link:hover, .nav-link:focus-visible, .nav-link.active { color: #fff; }
 
     /* ---------- Hero search + live results ---------- */
-    .site-search { position: relative; }
+    /* z-index keeps the open dropdown above the trust line below it. Sibling .hero-soft
+       elements set a filter, which spawns their own stacking contexts, so this has to
+       live on an unfiltered wrapper to win against them. */
+    .site-search { position: relative; z-index: 30; }
     .search-box { position: relative; display: flex; align-items: center; gap: .75rem;
       background: rgba(255,255,255,.55); backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px);
       border: 1px solid rgba(17,20,28,.1); border-radius: 9999px; padding: .45rem .45rem .45rem 1.35rem;
@@ -161,6 +164,9 @@
       transition: transform .15s ease, box-shadow .2s ease; }
     .search-go:hover { box-shadow: 0 1px 0 rgba(255,255,255,.5) inset, 0 14px 26px -8px rgba(124,58,237,.7); }
     .search-go:active { transform: scale(.94); }
+    .search-arrow { animation: arrowFloat 1.8s ease-in-out infinite; }
+    @keyframes arrowFloat { 0%,100% { transform: translateY(0); } 50% { transform: translateY(-3px); } }
+    .search-go:hover .search-arrow { animation-duration: .7s; }
 
     .search-results { position: absolute; top: calc(100% + .6rem); left: 0; right: 0; max-height: 21rem;
       overflow-y: auto; background: #fff; border: 1px solid var(--color-line); border-radius: 1rem;
@@ -399,6 +405,7 @@
       .reveal { opacity:1 !important; transform:none !important; transition:none !important; }
       .hero-in { animation:none !important; opacity:1 !important; transform:none !important; }
       .hero-soft { animation:none !important; opacity:1 !important; filter:none !important; transform:none !important; }
+      .search-arrow { animation:none !important; }
       .word { overflow: visible !important; }
       .word-inner { animation:none !important; transform:none !important; }
       .marquee-track { animation:none !important; }
@@ -458,15 +465,19 @@
   </header>
 
   <!-- HERO -->
-  <section class="relative overflow-hidden" id="hero">
-    <div class="relative overflow-hidden">
-      <div class="field" aria-hidden="true">
-        <span class="glow g1" style="--depth:.5"></span>
-        <span class="glow g2" style="--depth:.35"></span>
-        <span class="glow g3" style="--depth:.6"></span>
+  <section class="relative" id="hero">
+    <div class="relative">
+      <!-- Backdrop layers get their own clip box so the glows stay inside the hero,
+           while hero content (and the search dropdown) can overflow freely. -->
+      <div class="absolute inset-0 overflow-hidden" aria-hidden="true">
+        <div class="field">
+          <span class="glow g1" style="--depth:.5"></span>
+          <span class="glow g2" style="--depth:.35"></span>
+          <span class="glow g3" style="--depth:.6"></span>
+        </div>
+        <div class="dotgrid"></div>
+        <div class="hero-app-field" id="heroAppField"></div>
       </div>
-      <div class="dotgrid"></div>
-      <div class="hero-app-field" id="heroAppField" aria-hidden="true"></div>
       <div class="relative z-10 max-w-6xl mx-auto px-6 pt-16 pb-10 md:pt-28 md:pb-12">
         <div class="max-w-2xl mx-auto text-center">
 
@@ -476,14 +487,16 @@
           </h1>
 
           <!-- Search -->
-          <div class="hero-soft site-search mt-8 max-w-xl mx-auto" id="siteSearch" style="animation-delay:.55s">
-            <label class="search-box">
-              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" class="shrink-0 text-[var(--color-muted)]"><circle cx="11" cy="11" r="7" stroke="currentColor" stroke-width="2"/><path d="M21 21l-4.3-4.3" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
-              <input type="text" id="siteSearchInput" placeholder="Find a tool, a comparison, or a category…" autocomplete="off" role="combobox" aria-expanded="false" aria-controls="searchResults" aria-label="Search tools">
-              <button type="button" class="search-go" id="siteSearchGo" aria-label="Search">
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M9 6l6 6-6 6" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
-              </button>
-            </label>
+          <div class="site-search mt-8 max-w-xl mx-auto" id="siteSearch">
+            <div class="hero-soft" style="animation-delay:.55s">
+              <label class="search-box">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" class="shrink-0 text-[var(--color-muted)]"><circle cx="11" cy="11" r="7" stroke="currentColor" stroke-width="2"/><path d="M21 21l-4.3-4.3" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+                <input type="text" id="siteSearchInput" placeholder="Find a tool, a comparison, or a category…" autocomplete="off" role="combobox" aria-expanded="false" aria-controls="searchResults" aria-label="Search tools">
+                <button type="button" class="search-go" id="siteSearchGo" aria-label="Search">
+                  <svg class="search-arrow" width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M12 19V5M5 12l7-7 7 7" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                </button>
+              </label>
+            </div>
             <div class="search-results" id="searchResults" role="listbox" hidden></div>
           </div>
 
