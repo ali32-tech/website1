@@ -95,16 +95,23 @@
     .hero-in { opacity: 0; transform: translateY(14px); animation: heroIn .75s cubic-bezier(.16,1,.3,1) forwards; }
     @keyframes heroIn { to { opacity: 1; transform: translateY(0); } }
 
-    /* ---------- Header: solid dark bar, edge to edge ---------- */
-    /* Deliberately opaque rather than translucent: over a white page a see-through
-       dark bar washes out to grey at the top of the scroll. */
-    .site-header { background: #0D1018; border-bottom: 1px solid rgba(255,255,255,.08);
-      transition: box-shadow .3s ease, border-color .3s ease; }
-    .site-header.scrolled { border-bottom-color: rgba(255,255,255,.12);
-      box-shadow: 0 10px 30px -18px rgba(0,0,0,.8); }
-
-    .nav-inner { max-width: 72rem; margin: 0 auto; padding: 0 1.5rem; height: 4.5rem;
-      display: flex; align-items: center; gap: .6rem; }
+    /* ---------- Header: floating capsule sitting over the hero backdrop ---------- */
+    /* Fixed (not sticky) so the hero starts at y=0 and its glow layers run underneath
+       the bar — the capsule's sides then show the background, not white. */
+    .site-header { position: fixed; top: 0; left: 0; right: 0;
+      padding: .9rem 1rem; pointer-events: none; }
+    .nav-inner { pointer-events: auto; width: max-content; max-width: 100%; margin: 0 auto;
+      display: flex; align-items: center; gap: .5rem;
+      padding: .4rem .5rem .4rem .85rem; border-radius: 9999px;
+      background: linear-gradient(to bottom, rgba(17,20,30,.92), rgba(11,13,20,.86));
+      backdrop-filter: blur(20px) saturate(180%); -webkit-backdrop-filter: blur(20px) saturate(180%);
+      border: 1px solid rgba(255,255,255,.1);
+      box-shadow: 0 1px 0 rgba(255,255,255,.09) inset, 0 14px 38px -16px rgba(0,0,0,.55);
+      transition: box-shadow .35s ease, background .35s ease, border-color .35s ease; }
+    .site-header.scrolled .nav-inner {
+      background: linear-gradient(to bottom, rgba(17,20,30,.97), rgba(11,13,20,.94));
+      border-color: rgba(255,255,255,.14);
+      box-shadow: 0 1px 0 rgba(255,255,255,.1) inset, 0 18px 44px -16px rgba(0,0,0,.7); }
 
     .nav-brand { display: flex; align-items: center; gap: .55rem; flex-shrink: 0; }
     .nav-brand .brand-name { color: #fff; }
@@ -122,10 +129,14 @@
       transition: background .2s ease; }
     .nav-toggle:hover { background: rgba(255,255,255,.12); }
 
-    /* Mobile menu: full-width dark sheet under the bar */
-    .nav-drop { background: #0D1018; border-top: 1px solid rgba(255,255,255,.08); }
-    .nav-drop nav { max-width: 72rem; margin: 0 auto; padding: .5rem 1.5rem .9rem; }
-    .nav-drop a { display: block; padding: .65rem .8rem; border-radius: .7rem;
+    /* Mobile menu hangs below the capsule as its own floating card */
+    .nav-drop { pointer-events: auto; width: max-content; min-width: 13rem; margin: .55rem auto 0;
+      padding: .45rem; border-radius: 1.25rem;
+      background: linear-gradient(to bottom, rgba(17,20,30,.97), rgba(11,13,20,.95));
+      backdrop-filter: blur(20px) saturate(180%); -webkit-backdrop-filter: blur(20px) saturate(180%);
+      border: 1px solid rgba(255,255,255,.12);
+      box-shadow: 0 1px 0 rgba(255,255,255,.08) inset, 0 18px 40px -16px rgba(0,0,0,.65); }
+    .nav-drop a { display: block; padding: .65rem .9rem; border-radius: .8rem;
       font-size: .875rem; font-weight: 600; color: rgba(255,255,255,.75);
       transition: background .18s ease, color .18s ease; }
     .nav-drop a:hover { background: rgba(255,255,255,.09); color: #fff; }
@@ -221,7 +232,7 @@
 <body class="font-sans text-[var(--color-ink)] antialiased">
 
   <!-- NAV -->
-  <header class="site-header sticky top-0 z-40" id="siteHeader">
+  <header class="site-header z-40" id="siteHeader">
     <div class="nav-inner">
       <a href="/" class="nav-brand">
         <span class="logo-mark"><span class="bar"></span><span class="bar"></span><span class="bar"></span></span>
@@ -264,7 +275,7 @@
     </div>
     <div class="dotgrid" aria-hidden="true"></div>
 
-    <div class="relative z-10 max-w-3xl mx-auto px-6 pt-16 pb-14 md:pt-20 md:pb-16 text-center">
+    <div class="relative z-10 max-w-3xl mx-auto px-6 pt-36 pb-14 md:pt-40 md:pb-16 text-center">
       <div class="hero-soft text-xs font-bold uppercase tracking-wider text-[var(--color-accent)] mb-3">The Blog</div>
       <h1 id="heroHeadline" class="font-hero text-4xl md:text-5xl font-extrabold tracking-tight text-balance">
         Field notes from the tool bench.
