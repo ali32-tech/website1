@@ -95,45 +95,37 @@
     .hero-in { opacity: 0; transform: translateY(14px); animation: heroIn .75s cubic-bezier(.16,1,.3,1) forwards; }
     @keyframes heroIn { to { opacity: 1; transform: translateY(0); } }
 
-    /* ---------- Header: a floating capsule that hovers over the page ---------- */
-    /* The bar itself is just a transparent gutter; only the island is visible, so
-       pointer-events are re-enabled on the island alone. */
-    .site-header { padding: .9rem 1rem; pointer-events: none; }
-    .nav-island { pointer-events: auto; width: max-content; max-width: 100%; margin: 0 auto;
-      display: flex; align-items: center; gap: .5rem;
-      padding: .4rem .5rem .4rem .85rem; border-radius: 9999px;
-      background: linear-gradient(to bottom, rgba(17,20,30,.9), rgba(11,13,20,.82));
-      backdrop-filter: blur(20px) saturate(180%); -webkit-backdrop-filter: blur(20px) saturate(180%);
-      border: 1px solid rgba(255,255,255,.1);
-      box-shadow: 0 1px 0 rgba(255,255,255,.09) inset, 0 14px 38px -16px rgba(0,0,0,.55);
-      transition: box-shadow .35s ease, background .35s ease, border-color .35s ease; }
-    .site-header.scrolled .nav-island {
-      background: linear-gradient(to bottom, rgba(17,20,30,.96), rgba(11,13,20,.92));
-      border-color: rgba(255,255,255,.14);
-      box-shadow: 0 1px 0 rgba(255,255,255,.1) inset, 0 18px 44px -16px rgba(0,0,0,.7); }
+    /* ---------- Header: solid dark bar, edge to edge ---------- */
+    /* Deliberately opaque rather than translucent: over a white page a see-through
+       dark bar washes out to grey at the top of the scroll. */
+    .site-header { background: #0D1018; border-bottom: 1px solid rgba(255,255,255,.08);
+      transition: box-shadow .3s ease, border-color .3s ease; }
+    .site-header.scrolled { border-bottom-color: rgba(255,255,255,.12);
+      box-shadow: 0 10px 30px -18px rgba(0,0,0,.8); }
+
+    .nav-inner { max-width: 72rem; margin: 0 auto; padding: 0 1.5rem; height: 4.5rem;
+      display: flex; align-items: center; gap: .6rem; }
 
     .nav-brand { display: flex; align-items: center; gap: .55rem; flex-shrink: 0; }
     .nav-brand .brand-name { color: #fff; }
     .nav-brand .logo-mark { width: 1.6rem; height: 1.6rem; border-radius: .5rem;
       background: rgba(255,255,255,.13); border: 1px solid rgba(255,255,255,.18); }
-    .nav-divider { width: 1px; height: 1.15rem; flex-shrink: 0;
+    .nav-divider { width: 1px; height: 1.15rem; flex-shrink: 0; margin: 0 .35rem;
       background: linear-gradient(to bottom, transparent, rgba(255,255,255,.2), transparent); }
 
     .nav-group { align-items: center; gap: .1rem; }
 
-    .nav-toggle { width: 2.1rem; height: 2.1rem; display: flex; align-items: center; justify-content: center;
+    /* No `display` here — it would beat Tailwind's md:hidden and leak the
+       hamburger onto desktop. Display is set by utilities in the markup. */
+    .nav-toggle { width: 2.25rem; height: 2.25rem; margin-left: auto;
       border: 0; border-radius: 9999px; background: transparent; color: #fff; cursor: pointer;
       transition: background .2s ease; }
     .nav-toggle:hover { background: rgba(255,255,255,.12); }
 
-    /* Mobile menu hangs below the island as its own floating card */
-    .nav-drop { pointer-events: auto; width: max-content; min-width: 13rem; margin: .55rem auto 0;
-      padding: .45rem; border-radius: 1.25rem;
-      background: linear-gradient(to bottom, rgba(17,20,30,.96), rgba(11,13,20,.94));
-      backdrop-filter: blur(20px) saturate(180%); -webkit-backdrop-filter: blur(20px) saturate(180%);
-      border: 1px solid rgba(255,255,255,.12);
-      box-shadow: 0 1px 0 rgba(255,255,255,.08) inset, 0 18px 40px -16px rgba(0,0,0,.65); }
-    .nav-drop a { display: block; padding: .6rem .9rem; border-radius: .8rem;
+    /* Mobile menu: full-width dark sheet under the bar */
+    .nav-drop { background: #0D1018; border-top: 1px solid rgba(255,255,255,.08); }
+    .nav-drop nav { max-width: 72rem; margin: 0 auto; padding: .5rem 1.5rem .9rem; }
+    .nav-drop a { display: block; padding: .65rem .8rem; border-radius: .7rem;
       font-size: .875rem; font-weight: 600; color: rgba(255,255,255,.75);
       transition: background .18s ease, color .18s ease; }
     .nav-drop a:hover { background: rgba(255,255,255,.09); color: #fff; }
@@ -230,7 +222,7 @@
 
   <!-- NAV -->
   <header class="site-header sticky top-0 z-40" id="siteHeader">
-    <div class="nav-island">
+    <div class="nav-inner">
       <a href="/" class="nav-brand">
         <span class="logo-mark"><span class="bar"></span><span class="bar"></span><span class="bar"></span></span>
         <span class="brand-name font-display text-base font-extrabold tracking-tight">Toolbench</span>
@@ -247,7 +239,7 @@
         <a href="/#about" class="nav-link">About</a>
       </nav>
 
-      <button type="button" id="navToggle" class="nav-toggle md:hidden" aria-label="Toggle navigation menu" aria-expanded="false" aria-controls="mobileNav">
+      <button type="button" id="navToggle" class="nav-toggle flex md:hidden items-center justify-center" aria-label="Toggle navigation menu" aria-expanded="false" aria-controls="mobileNav">
         <svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M4 7h16M4 12h16M4 17h16" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
       </button>
     </div>
