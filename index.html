@@ -127,7 +127,10 @@
       border-bottom-color: rgba(230,232,235,.9);
       box-shadow: 0 1px 0 rgba(255,255,255,.6) inset, 0 8px 28px -20px rgba(11,13,18,.4); }
 
-    .nav-group { align-items: center; gap: .25rem; margin-left: 1.75rem; }
+    /* Absolutely centered so the links sit on the true middle of the bar,
+       independent of how wide the logo is. */
+    .nav-group { position: absolute; left: 50%; transform: translateX(-50%);
+      align-items: center; gap: .25rem; }
 
     /* Nav pill: brand-color fill grows in behind the label on hover.
        `isolation` keeps the -1 pseudo-element behind the text but still above the header. */
@@ -428,7 +431,7 @@
 
   <!-- NAV -->
   <header class="site-header sticky top-0 z-40" id="siteHeader">
-    <div class="max-w-6xl mx-auto px-6 h-20 flex items-center gap-4">
+    <div class="relative max-w-6xl mx-auto px-6 h-20 flex items-center gap-4">
       <a href="/" class="flex items-center gap-2.5 shrink-0">
         <span class="logo-mark"><span class="bar"></span><span class="bar"></span><span class="bar"></span></span>
         <span class="font-display text-lg font-extrabold tracking-tight">Toolbench</span>
@@ -443,12 +446,9 @@
         <a href="#about" class="nav-link">About</a>
       </nav>
 
-      <div class="flex items-center gap-2.5 shrink-0 ml-auto">
-        <a href="#newsletter" class="btn-shine btn-press hidden sm:inline-block text-sm font-semibold bg-[var(--color-ink)] text-white px-4 py-2 rounded-full hover:bg-[var(--color-accent)] transition-colors whitespace-nowrap">Get Weekly Picks</a>
-        <button type="button" id="navToggle" class="md:hidden w-10 h-10 -mr-2 flex items-center justify-center rounded-full text-[var(--color-ink)] hover:bg-[var(--color-bg-soft)] transition-colors" aria-label="Toggle navigation menu" aria-expanded="false" aria-controls="mobileNav">
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M4 7h16M4 12h16M4 17h16" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
-        </button>
-      </div>
+      <button type="button" id="navToggle" class="md:hidden w-10 h-10 -mr-2 ml-auto flex items-center justify-center rounded-full text-[var(--color-ink)] hover:bg-[var(--color-bg-soft)] transition-colors" aria-label="Toggle navigation menu" aria-expanded="false" aria-controls="mobileNav">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M4 7h16M4 12h16M4 17h16" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+      </button>
     </div>
 
     <div id="mobileNav" class="md:hidden hidden border-t border-white/40 bg-white/70 backdrop-blur-xl">
@@ -459,7 +459,6 @@
         <a href="#best" class="py-2.5 text-sm font-semibold text-[var(--color-muted)] hover:text-[var(--color-ink)] transition-colors">Best Tools</a>
         <a href="/blog/" class="py-2.5 text-sm font-semibold text-[var(--color-muted)] hover:text-[var(--color-ink)] transition-colors">Blog</a>
         <a href="#about" class="py-2.5 text-sm font-semibold text-[var(--color-muted)] hover:text-[var(--color-ink)] transition-colors">About</a>
-        <a href="#newsletter" class="sm:hidden mt-3 mb-1 text-center text-sm font-semibold bg-[var(--color-ink)] text-white px-4 py-2.5 rounded-full">Get Weekly Picks</a>
       </nav>
     </div>
   </header>
@@ -478,7 +477,7 @@
         <div class="dotgrid"></div>
         <div class="hero-app-field" id="heroAppField"></div>
       </div>
-      <div class="relative z-10 max-w-6xl mx-auto px-6 pt-16 pb-10 md:pt-28 md:pb-12">
+      <div class="relative z-20 max-w-6xl mx-auto px-6 pt-16 pb-10 md:pt-28 md:pb-12">
         <div class="max-w-2xl mx-auto text-center">
 
           <!-- Headline -->
@@ -1424,12 +1423,15 @@
           searchMatches = [];
           if (q) {
             var needle = q.toLowerCase();
+            // Match on name, category and features only — searching the summary prose
+            // pulls in noise (e.g. "cal" hitting "every call" in an unrelated write-up).
             spotlightSearchIndex.forEach(function (entry) {
-              var haystack = (entry.name + ' ' + entry.catLabel + ' ' + entry.features.join(' ') + ' ' + entry.summary).toLowerCase();
-              if (haystack.indexOf(needle) === -1) return;
-              // Name matches outrank body matches, and prefix beats mid-word.
               var name = entry.name.toLowerCase();
-              var rank = name.indexOf(needle) === 0 ? 0 : (name.indexOf(needle) > -1 ? 1 : 2);
+              var rank;
+              if (name.indexOf(needle) === 0) rank = 0;
+              else if (name.indexOf(needle) > -1) rank = 1;
+              else if ((entry.features.join(' ') + ' ' + entry.catLabel).toLowerCase().indexOf(needle) > -1) rank = 2;
+              else return;
               searchMatches.push({ entry: entry, rank: rank });
             });
             searchMatches.sort(function (a, b) { return a.rank - b.rank; });
