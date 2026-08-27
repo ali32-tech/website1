@@ -1,0 +1,474 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Blog | Toolbench — Field Notes on Marketing &amp; SEO Tools</title>
+  <meta name="description"
+    content="Hands-on write-ups from the Toolbench team: tool teardowns, migration notes, and honest verdicts from real client campaigns.">
+  <meta name="robots" content="index, follow">
+  <link rel="canonical" href="https://toolbench.co/blog/">
+
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="Toolbench">
+  <meta property="og:url" content="https://toolbench.co/blog/">
+  <meta property="og:title" content="Blog | Toolbench — Field Notes on Marketing &amp; SEO Tools">
+  <meta property="og:description"
+    content="Tool teardowns, migration notes, and honest verdicts from real client campaigns.">
+
+  <meta name="theme-color" content="#7C3AED">
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Blog",
+    "name": "Toolbench Blog",
+    "url": "https://toolbench.co/blog/",
+    "description": "Hands-on write-ups on SEO, content, and growth marketing tools."
+  }
+  </script>
+
+  <!-- Tailwind v4 CDN -->
+  <script src="https://unpkg.com/@tailwindcss/browser@4"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@500;600;700;800&family=Inter:wght@400;500;600;700&family=Bricolage+Grotesque:opsz,wght@12..96,600..800&display=swap" rel="stylesheet">
+
+  <style type="text/tailwindcss">
+    @theme {
+      --font-display: 'Plus Jakarta Sans', sans-serif;
+      --font-hero: 'Bricolage Grotesque', sans-serif;
+      --font-sans: 'Inter', sans-serif;
+      --color-bg: #FFFFFF;
+      --color-bg-soft: #F6F7F8;
+      --color-surface: #FFFFFF;
+      --color-ink: #0B0D12;
+      --color-muted: #5B6472;
+      --color-line: #E6E8EB;
+      --color-accent: #7C3AED;
+      --color-accent-dark: #5B21B6;
+      --color-accent-soft: #F1EAFD;
+      --color-amber: #B7791F;
+      --color-amber-soft: #FBF1DF;
+    }
+
+    html { scroll-behavior: smooth; }
+    body { background: var(--color-bg); color: var(--color-ink); }
+    .font-display { font-family: var(--font-display); }
+    .font-hero { font-family: var(--font-hero); letter-spacing: -0.01em; }
+    ::selection { background: var(--color-accent-soft); color: var(--color-accent-dark); }
+
+    /* ---------- Animated logo mark ---------- */
+    .logo-mark { width: 1.75rem; height: 1.75rem; border-radius: 0.55rem; background: var(--color-ink);
+      display:flex; align-items:flex-end; justify-content:center; gap:3px; padding: 6px 0 5px; }
+    .logo-mark .bar { width: 3px; border-radius: 2px; background: var(--color-accent); transform-origin: bottom; animation: barPulse 1.6s ease-in-out infinite; }
+    .logo-mark .bar:nth-child(1) { height: 40%; animation-delay: 0s; }
+    .logo-mark .bar:nth-child(2) { height: 100%; animation-delay: .18s; background: #fff; }
+    .logo-mark .bar:nth-child(3) { height: 65%; animation-delay: .36s; }
+    @keyframes barPulse { 0%,100% { transform: scaleY(.55); } 50% { transform: scaleY(1); } }
+    footer .logo-mark .bar { animation: none; }
+
+    /* ---------- Ambient backdrop: aurora mesh ---------- */
+    .field { position: absolute; inset: 0; overflow: hidden; z-index: 0; pointer-events: none; }
+    .field .glow { position: absolute; border-radius: 9999px; filter: blur(64px); }
+    .glow.g1 { width: 34rem; height: 34rem; top: -15rem; left: -9rem; opacity: .28;
+      background: radial-gradient(circle, var(--color-accent) 0%, transparent 70%);
+      animation: drift1 24s ease-in-out infinite; }
+    .glow.g2 { width: 30rem; height: 30rem; top: -12rem; right: -8rem; opacity: .22;
+      background: radial-gradient(circle, #A57BF2 0%, transparent 70%);
+      animation: drift2 30s ease-in-out infinite; }
+    @keyframes drift1 { 0%,100% { transform: translate(0,0) scale(1); } 50% { transform: translate(2.5rem,2rem) scale(1.08); } }
+    @keyframes drift2 { 0%,100% { transform: translate(0,0) scale(1); } 50% { transform: translate(-2rem,2.5rem) scale(1.06); } }
+    .dotgrid { position: absolute; inset: 0; z-index: 0; opacity: .5;
+      background-image: radial-gradient(color-mix(in srgb, var(--color-ink) 8%, transparent) 1px, transparent 1px);
+      background-size: 24px 24px;
+      -webkit-mask-image: radial-gradient(55% 55% at 50% 20%, #000 0%, transparent 75%);
+      mask-image: radial-gradient(55% 55% at 50% 20%, #000 0%, transparent 75%); }
+
+    /* ---------- Reveal on scroll ---------- */
+    .reveal { opacity: 0; transform: translateY(20px); transition: opacity .6s cubic-bezier(.16,1,.3,1), transform .6s cubic-bezier(.16,1,.3,1); }
+    .reveal.is-in { opacity: 1; transform: translateY(0); }
+    .stagger > * { transition-delay: calc(var(--i,0) * 80ms); }
+
+    /* ---------- Hero entrance ---------- */
+    .hero-in { opacity: 0; transform: translateY(14px); animation: heroIn .75s cubic-bezier(.16,1,.3,1) forwards; }
+    @keyframes heroIn { to { opacity: 1; transform: translateY(0); } }
+
+    /* ---------- Buttons ---------- */
+    .btn-shine { position: relative; overflow: hidden; }
+    .btn-shine::before { content:""; position:absolute; top:0; left:-60%; width:35%; height:100%;
+      background: linear-gradient(115deg, transparent, rgba(255,255,255,.4), transparent);
+      transform: skewX(-18deg); transition: left .65s ease; }
+    .btn-shine:hover::before { left: 130%; }
+    .btn-press { transition: transform .15s ease, box-shadow .2s ease; }
+    .btn-press:active { transform: scale(.96); }
+
+    /* ---------- Cards ---------- */
+    .card-hover { transition: transform .25s cubic-bezier(.16,1,.3,1), border-color .25s ease, box-shadow .25s ease; will-change: transform; }
+    .card-hover:hover { transform: translateY(-3px); border-color: color-mix(in srgb, var(--color-accent) 45%, var(--color-line));
+      box-shadow: 0 22px 44px -28px rgba(11,13,18,.28); }
+    .card-hover:hover .arrow { transform: translateX(4px); }
+    .arrow { transition: transform .2s cubic-bezier(.16,1,.3,1); display:inline-block; }
+
+    /* ---------- Category pills ---------- */
+    .score-pill { font-size: .85rem; font-weight: 600; padding: .55rem 1.15rem; border-radius: 9999px; border: 1px solid var(--color-line);
+      color: var(--color-muted); background: #fff; transition: border-color .2s ease, color .2s ease, background .2s ease; cursor: pointer; white-space: nowrap; }
+    .score-pill.active { border-color: var(--color-accent); color: var(--color-accent-dark); background: var(--color-accent-soft); }
+    .score-pill:not(.active):hover { border-color: color-mix(in srgb, var(--color-accent) 40%, var(--color-line)); color: var(--color-ink); }
+
+    /* ---------- Post cover: gradient canvas + floating tool logo ---------- */
+    .post-cover { position: relative; overflow: hidden; display: flex; align-items: center; justify-content: center; }
+    .post-cover::after { content:""; position:absolute; inset:0;
+      background-image: radial-gradient(rgba(255,255,255,.16) 1px, transparent 1px); background-size: 18px 18px; }
+    .post-cover img { position: relative; z-index: 1; width: 56px; height: 56px; object-fit: contain;
+      background:#fff; border-radius: 30%; padding: 10px; box-sizing: border-box;
+      box-shadow: 0 14px 28px -10px rgba(0,0,0,.45); animation: coverFloat 3.6s ease-in-out infinite; }
+    @keyframes coverFloat { 0%,100% { transform: translateY(0) scale(1); } 50% { transform: translateY(-5px) scale(1.04); } }
+    .post-cover.lg img { width: 76px; height: 76px; padding: 13px; }
+
+    .post-tag { font-size: .68rem; font-weight: 700; letter-spacing: .06em; text-transform: uppercase;
+      padding: .3rem .6rem; border-radius: 9999px; background: var(--color-accent-soft); color: var(--color-accent-dark); }
+
+    /* Fade a card out when it's filtered away, then pull it from layout */
+    .post-card.hide { display: none; }
+
+    @media (prefers-reduced-motion: reduce) {
+      html { scroll-behavior: auto; }
+      .reveal { opacity:1 !important; transform:none !important; transition:none !important; }
+      .hero-in { animation:none !important; opacity:1 !important; transform:none !important; }
+      .logo-mark .bar { animation:none !important; transform:scaleY(.8) !important; }
+      .field .glow { animation:none !important; }
+      .post-cover img { animation:none !important; }
+      .card-hover { transition:none !important; }
+    }
+  </style>
+</head>
+
+<body class="font-sans text-[var(--color-ink)] antialiased">
+
+  <!-- NAV -->
+  <header class="sticky top-0 z-40 bg-white/85 backdrop-blur-md border-b border-[var(--color-line)]">
+    <div class="max-w-6xl mx-auto px-6 h-20 flex items-center justify-between">
+      <a href="/" class="flex items-center gap-2.5">
+        <span class="logo-mark"><span class="bar"></span><span class="bar"></span><span class="bar"></span></span>
+        <span class="font-display text-lg font-extrabold tracking-tight">Toolbench</span>
+      </a>
+      <div class="flex items-center gap-3">
+        <label class="hidden md:flex items-center gap-2 bg-[var(--color-bg-soft)] border border-[var(--color-line)] rounded-full px-3.5 py-2 w-40 focus-within:w-60 focus-within:border-[var(--color-accent)] transition-[width,border-color] duration-300">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" class="text-[var(--color-muted)] shrink-0"><circle cx="11" cy="11" r="7" stroke="currentColor" stroke-width="2"/><path d="M21 21l-4.3-4.3" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+          <input id="postSearchInput" type="text" placeholder="Search posts…" class="bg-transparent outline-none text-sm w-full placeholder:text-[var(--color-muted)]">
+        </label>
+        <a href="#newsletter" class="btn-shine btn-press text-sm font-semibold bg-[var(--color-ink)] text-white px-4 py-2 rounded-full hover:bg-[var(--color-accent)] transition-colors whitespace-nowrap">Get Weekly Picks</a>
+      </div>
+    </div>
+  </header>
+
+  <!-- BLOG HERO -->
+  <section class="relative overflow-hidden border-b border-[var(--color-line)]">
+    <div class="field" aria-hidden="true">
+      <span class="glow g1"></span>
+      <span class="glow g2"></span>
+    </div>
+    <div class="dotgrid" aria-hidden="true"></div>
+
+    <div class="relative z-10 max-w-3xl mx-auto px-6 pt-16 pb-14 md:pt-20 md:pb-16 text-center">
+      <div class="hero-in text-xs font-bold uppercase tracking-wider text-[var(--color-accent)] mb-3">The Blog</div>
+      <h1 class="hero-in font-hero text-4xl md:text-5xl font-extrabold tracking-tight text-balance" style="animation-delay:.08s">
+        Field notes from the tool bench.
+      </h1>
+      <p class="hero-in mt-5 text-lg text-[var(--color-muted)] max-w-xl mx-auto" style="animation-delay:.16s">
+        Teardowns, migration diaries, and the occasional rant — written while the tools were still open in our tabs.
+      </p>
+    </div>
+  </section>
+
+  <!-- CATEGORY FILTER -->
+  <div class="max-w-6xl mx-auto px-6 pt-10">
+    <div class="reveal flex flex-wrap items-center justify-center gap-2" id="blogCatPills">
+      <button type="button" class="score-pill active" data-cat="all">All Posts</button>
+      <button type="button" class="score-pill" data-cat="seo">SEO</button>
+      <button type="button" class="score-pill" data-cat="ai">AI</button>
+      <button type="button" class="score-pill" data-cat="email">Email</button>
+      <button type="button" class="score-pill" data-cat="social">Social</button>
+      <button type="button" class="score-pill" data-cat="productivity">Productivity</button>
+    </div>
+  </div>
+
+  <!-- FEATURED POST -->
+  <section class="max-w-6xl mx-auto px-6 pt-10">
+    <article class="reveal post-card card-hover bg-white border border-[var(--color-line)] rounded-3xl overflow-hidden grid md:grid-cols-2" data-cat="seo">
+      <a href="#" class="post-cover lg h-56 md:h-full min-h-[220px]" style="background: linear-gradient(135deg, #A57BF2, var(--color-accent) 60%, var(--color-accent-dark));" aria-label="Read featured post">
+        <img src="../assets/logos/ahrefs.png" alt="Ahrefs">
+      </a>
+      <div class="p-7 md:p-10 flex flex-col justify-center">
+        <div class="flex items-center gap-2 mb-4">
+          <span class="post-tag">Featured</span>
+          <span class="post-tag" style="background:var(--color-amber-soft); color:var(--color-amber);">SEO</span>
+        </div>
+        <h2 class="font-display text-2xl md:text-3xl font-extrabold tracking-tight text-balance">
+          <a href="#" class="hover:text-[var(--color-accent-dark)] transition-colors">We ran Ahrefs and Semrush side by side for 6 months. Here's what actually differed.</a>
+        </h2>
+        <p class="mt-4 text-[var(--color-muted)] leading-relaxed">
+          Same client, same keyword set, two subscriptions running in parallel. The gap wasn't in the database size everyone argues about — it showed up in how each tool handled the messy middle of a content refresh.
+        </p>
+        <div class="mt-6 flex items-center gap-3 text-sm text-[var(--color-muted)]">
+          <span class="font-semibold text-[var(--color-ink)]">Toolbench Team</span>
+          <span>·</span>
+          <time datetime="2026-08-14">Aug 14, 2026</time>
+          <span>·</span>
+          <span>11 min read</span>
+        </div>
+        <a href="#" class="mt-6 inline-flex items-center gap-1 text-sm font-semibold text-[var(--color-accent-dark)] w-fit">Read the breakdown <span class="arrow">→</span></a>
+      </div>
+    </article>
+  </section>
+
+  <!-- POST GRID -->
+  <section class="max-w-6xl mx-auto px-6 py-12 md:py-16">
+    <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-6 stagger" id="postGrid">
+
+      <article class="reveal post-card card-hover bg-white border border-[var(--color-line)] rounded-2xl overflow-hidden flex flex-col" data-cat="ai" style="--i:0">
+        <a href="#" class="post-cover h-40" style="background: linear-gradient(135deg, #6D4AC9, #4C1D95);" aria-label="Read post"><img src="../assets/logos/claude.png" alt="Claude"></a>
+        <div class="p-6 flex flex-col flex-1">
+          <span class="post-tag w-fit mb-3">AI</span>
+          <h3 class="font-display text-lg font-bold leading-snug">
+            <a href="#" class="hover:text-[var(--color-accent-dark)] transition-colors">Where AI writing tools still fall apart on technical content</a>
+          </h3>
+          <p class="mt-2.5 text-sm text-[var(--color-muted)] leading-relaxed flex-1">We fed the same developer-docs brief to four models. Three produced confident, plausible, quietly wrong output.</p>
+          <div class="mt-4 flex items-center gap-2 text-xs text-[var(--color-muted)]">
+            <time datetime="2026-08-09">Aug 9, 2026</time><span>·</span><span>8 min read</span>
+          </div>
+        </div>
+      </article>
+
+      <article class="reveal post-card card-hover bg-white border border-[var(--color-line)] rounded-2xl overflow-hidden flex flex-col" data-cat="email" style="--i:1">
+        <a href="#" class="post-cover h-40" style="background: linear-gradient(135deg, #F97362, #C2410C);" aria-label="Read post"><img src="../assets/logos/convertkit.png" alt="ConvertKit"></a>
+        <div class="p-6 flex flex-col flex-1">
+          <span class="post-tag w-fit mb-3">Email</span>
+          <h3 class="font-display text-lg font-bold leading-snug">
+            <a href="#" class="hover:text-[var(--color-accent-dark)] transition-colors">Migrating 40k subscribers off Mailchimp without torching deliverability</a>
+          </h3>
+          <p class="mt-2.5 text-sm text-[var(--color-muted)] leading-relaxed flex-1">The warm-up schedule we used, the two things we got wrong in week one, and the numbers on the other side.</p>
+          <div class="mt-4 flex items-center gap-2 text-xs text-[var(--color-muted)]">
+            <time datetime="2026-08-05">Aug 5, 2026</time><span>·</span><span>9 min read</span>
+          </div>
+        </div>
+      </article>
+
+      <article class="reveal post-card card-hover bg-white border border-[var(--color-line)] rounded-2xl overflow-hidden flex flex-col" data-cat="productivity" style="--i:2">
+        <a href="#" class="post-cover h-40" style="background: linear-gradient(135deg, #3B82F6, #1E3A8A);" aria-label="Read post"><img src="../assets/logos/linear.png" alt="Linear"></a>
+        <div class="p-6 flex flex-col flex-1">
+          <span class="post-tag w-fit mb-3">Productivity</span>
+          <h3 class="font-display text-lg font-bold leading-snug">
+            <a href="#" class="hover:text-[var(--color-accent-dark)] transition-colors">Why our marketing team moved planning into Linear (and who shouldn't)</a>
+          </h3>
+          <p class="mt-2.5 text-sm text-[var(--color-muted)] leading-relaxed flex-1">An engineering tool running a content calendar sounds wrong. Six months in, the backlog finally stopped rotting.</p>
+          <div class="mt-4 flex items-center gap-2 text-xs text-[var(--color-muted)]">
+            <time datetime="2026-07-29">Jul 29, 2026</time><span>·</span><span>7 min read</span>
+          </div>
+        </div>
+      </article>
+
+      <article class="reveal post-card card-hover bg-white border border-[var(--color-line)] rounded-2xl overflow-hidden flex flex-col" data-cat="seo" style="--i:3">
+        <a href="#" class="post-cover h-40" style="background: linear-gradient(135deg, #34D399, #047857);" aria-label="Read post"><img src="../assets/logos/surfer-seo.png" alt="Surfer SEO"></a>
+        <div class="p-6 flex flex-col flex-1">
+          <span class="post-tag w-fit mb-3">SEO</span>
+          <h3 class="font-display text-lg font-bold leading-snug">
+            <a href="#" class="hover:text-[var(--color-accent-dark)] transition-colors">Content scoring tools are useful right up until you optimize for them</a>
+          </h3>
+          <p class="mt-2.5 text-sm text-[var(--color-muted)] leading-relaxed flex-1">Chasing a green score cost one client three positions. Here's the threshold where the advice stops paying off.</p>
+          <div class="mt-4 flex items-center gap-2 text-xs text-[var(--color-muted)]">
+            <time datetime="2026-07-22">Jul 22, 2026</time><span>·</span><span>10 min read</span>
+          </div>
+        </div>
+      </article>
+
+      <article class="reveal post-card card-hover bg-white border border-[var(--color-line)] rounded-2xl overflow-hidden flex flex-col" data-cat="social" style="--i:4">
+        <a href="#" class="post-cover h-40" style="background: linear-gradient(135deg, #38BDF8, #0369A1);" aria-label="Read post"><img src="../assets/logos/buffer.png" alt="Buffer"></a>
+        <div class="p-6 flex flex-col flex-1">
+          <span class="post-tag w-fit mb-3">Social</span>
+          <h3 class="font-display text-lg font-bold leading-snug">
+            <a href="#" class="hover:text-[var(--color-accent-dark)] transition-colors">Scheduling tools we tested for a 5-channel B2B calendar</a>
+          </h3>
+          <p class="mt-2.5 text-sm text-[var(--color-muted)] leading-relaxed flex-1">Buffer, Later, and Hootsuite on the same posting load for a quarter. Approvals are where they separate.</p>
+          <div class="mt-4 flex items-center gap-2 text-xs text-[var(--color-muted)]">
+            <time datetime="2026-07-15">Jul 15, 2026</time><span>·</span><span>8 min read</span>
+          </div>
+        </div>
+      </article>
+
+      <article class="reveal post-card card-hover bg-white border border-[var(--color-line)] rounded-2xl overflow-hidden flex flex-col" data-cat="ai" style="--i:5">
+        <a href="#" class="post-cover h-40" style="background: linear-gradient(135deg, #FBBF24, #B45309);" aria-label="Read post"><img src="../assets/logos/granola.png" alt="Granola"></a>
+        <div class="p-6 flex flex-col flex-1">
+          <span class="post-tag w-fit mb-3">AI</span>
+          <h3 class="font-display text-lg font-bold leading-snug">
+            <a href="#" class="hover:text-[var(--color-accent-dark)] transition-colors">The meeting-notes tool that finally stuck after four failed attempts</a>
+          </h3>
+          <p class="mt-2.5 text-sm text-[var(--color-muted)] leading-relaxed flex-1">Every AI notetaker we tried died in week two. This one survived because it stopped trying to replace our notes.</p>
+          <div class="mt-4 flex items-center gap-2 text-xs text-[var(--color-muted)]">
+            <time datetime="2026-07-08">Jul 8, 2026</time><span>·</span><span>6 min read</span>
+          </div>
+        </div>
+      </article>
+
+      <article class="reveal post-card card-hover bg-white border border-[var(--color-line)] rounded-2xl overflow-hidden flex flex-col" data-cat="productivity" style="--i:6">
+        <a href="#" class="post-cover h-40" style="background: linear-gradient(135deg, #F472B6, #9D174D);" aria-label="Read post"><img src="../assets/logos/motion.png" alt="Motion"></a>
+        <div class="p-6 flex flex-col flex-1">
+          <span class="post-tag w-fit mb-3">Productivity</span>
+          <h3 class="font-display text-lg font-bold leading-snug">
+            <a href="#" class="hover:text-[var(--color-accent-dark)] transition-colors">Two weeks of letting an AI planner own my calendar</a>
+          </h3>
+          <p class="mt-2.5 text-sm text-[var(--color-muted)] leading-relaxed flex-1">It rescheduled a client call into a lunch break on day three. By day ten I stopped second-guessing it.</p>
+          <div class="mt-4 flex items-center gap-2 text-xs text-[var(--color-muted)]">
+            <time datetime="2026-07-01">Jul 1, 2026</time><span>·</span><span>7 min read</span>
+          </div>
+        </div>
+      </article>
+
+      <article class="reveal post-card card-hover bg-white border border-[var(--color-line)] rounded-2xl overflow-hidden flex flex-col" data-cat="email" style="--i:7">
+        <a href="#" class="post-cover h-40" style="background: linear-gradient(135deg, #8B5CF6, #5B21B6);" aria-label="Read post"><img src="../assets/logos/beehiiv.png" alt="Beehiiv"></a>
+        <div class="p-6 flex flex-col flex-1">
+          <span class="post-tag w-fit mb-3">Email</span>
+          <h3 class="font-display text-lg font-bold leading-snug">
+            <a href="#" class="hover:text-[var(--color-accent-dark)] transition-colors">Newsletter monetization features, ranked by what actually paid out</a>
+          </h3>
+          <p class="mt-2.5 text-sm text-[var(--color-muted)] leading-relaxed flex-1">Referral programs, paid tiers, ad networks. One of the three carried almost all the revenue for a 12k list.</p>
+          <div class="mt-4 flex items-center gap-2 text-xs text-[var(--color-muted)]">
+            <time datetime="2026-06-24">Jun 24, 2026</time><span>·</span><span>9 min read</span>
+          </div>
+        </div>
+      </article>
+
+      <article class="reveal post-card card-hover bg-white border border-[var(--color-line)] rounded-2xl overflow-hidden flex flex-col" data-cat="seo" style="--i:8">
+        <a href="#" class="post-cover h-40" style="background: linear-gradient(135deg, #FB7185, #9F1239);" aria-label="Read post"><img src="../assets/logos/buzzstream.png" alt="BuzzStream"></a>
+        <div class="p-6 flex flex-col flex-1">
+          <span class="post-tag w-fit mb-3">SEO</span>
+          <h3 class="font-display text-lg font-bold leading-snug">
+            <a href="#" class="hover:text-[var(--color-accent-dark)] transition-colors">Outreach tooling barely matters. Your list quality is the whole game.</a>
+          </h3>
+          <p class="mt-2.5 text-sm text-[var(--color-muted)] leading-relaxed flex-1">We switched outreach platforms mid-campaign and reply rates moved 0.4%. Then we rebuilt the prospect list.</p>
+          <div class="mt-4 flex items-center gap-2 text-xs text-[var(--color-muted)]">
+            <time datetime="2026-06-17">Jun 17, 2026</time><span>·</span><span>8 min read</span>
+          </div>
+        </div>
+      </article>
+
+    </div>
+
+    <p class="hidden text-center text-[var(--color-muted)] py-12" id="postEmptyState">No posts in this category yet — check back soon.</p>
+  </section>
+
+  <!-- NEWSLETTER -->
+  <section id="newsletter">
+    <div class="max-w-6xl mx-auto px-6 pb-20 md:pb-28">
+      <div class="reveal relative overflow-hidden bg-[var(--color-ink)] text-white rounded-3xl px-8 py-12 md:px-14 md:py-16 flex flex-col md:flex-row items-start md:items-center justify-between gap-8">
+        <div class="absolute -top-24 -right-24 w-72 h-72 rounded-full opacity-30 blur-3xl" style="background: radial-gradient(circle, var(--color-accent), transparent 70%);"></div>
+        <div class="relative max-w-md">
+          <h2 class="font-display text-2xl md:text-3xl font-extrabold tracking-tight mb-3 text-balance">One honest tool verdict, every week.</h2>
+          <p class="text-white/65">No spam, no affiliate spam disguised as "news." Just what we're testing and whether it's worth your money.</p>
+        </div>
+        <form class="relative w-full md:w-auto flex flex-col sm:flex-row gap-3 shrink-0">
+          <input type="email" required placeholder="you@company.com"
+            class="px-4 py-3.5 rounded-full text-[var(--color-ink)] bg-white w-full sm:w-72 outline-none focus:ring-2 focus:ring-[var(--color-accent)] transition-shadow">
+          <button type="submit" class="btn-shine btn-press bg-[var(--color-accent)] hover:bg-[var(--color-accent-dark)] transition-colors font-semibold px-6 py-3.5 rounded-full whitespace-nowrap">Subscribe</button>
+        </form>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="border-t border-[var(--color-line)]">
+    <div class="max-w-6xl mx-auto px-6 py-12 grid sm:grid-cols-2 md:grid-cols-4 gap-8">
+      <div>
+        <div class="flex items-center gap-2.5 mb-3">
+          <span class="logo-mark"><span class="bar"></span><span class="bar"></span><span class="bar"></span></span>
+          <span class="font-display text-base font-extrabold">Toolbench</span>
+        </div>
+        <p class="text-sm text-[var(--color-muted)]">Hands-on reviews of marketing tools, by working SEO and growth practitioners.</p>
+      </div>
+      <div>
+        <div class="text-xs font-bold uppercase tracking-wider text-[var(--color-muted)] mb-3">Explore</div>
+        <ul class="space-y-2 text-sm text-[var(--color-muted)]">
+          <li><a href="/#explore" class="hover:text-[var(--color-ink)]">Reviews</a></li>
+          <li><a href="/#best" class="hover:text-[var(--color-ink)]">Best Tools</a></li>
+          <li><a href="/blog/" class="hover:text-[var(--color-ink)]">Blog</a></li>
+          <li><a href="/#about" class="hover:text-[var(--color-ink)]">Methodology</a></li>
+        </ul>
+      </div>
+      <div>
+        <div class="text-xs font-bold uppercase tracking-wider text-[var(--color-muted)] mb-3">Company</div>
+        <ul class="space-y-2 text-sm text-[var(--color-muted)]">
+          <li><a href="/#about" class="hover:text-[var(--color-ink)]">About Us</a></li>
+          <li><a href="#" class="hover:text-[var(--color-ink)]">Contact</a></li>
+        </ul>
+      </div>
+      <div>
+        <div class="text-xs font-bold uppercase tracking-wider text-[var(--color-muted)] mb-3">Legal</div>
+        <ul class="space-y-2 text-sm text-[var(--color-muted)]">
+          <li><a href="#" class="hover:text-[var(--color-ink)]">Privacy</a></li>
+          <li><a href="#" class="hover:text-[var(--color-ink)]">Terms</a></li>
+          <li><a href="#" class="hover:text-[var(--color-ink)]">Affiliate Disclosure</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="border-t border-[var(--color-line)] py-6 text-center text-xs text-[var(--color-muted)]">
+      © 2026 Toolbench. All reviews reflect our own testing and opinions.
+    </div>
+  </footer>
+
+  <script>
+    (function () {
+      var reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+      // Scroll reveal
+      var revealEls = document.querySelectorAll('.reveal');
+      if (reduced || !('IntersectionObserver' in window)) {
+        revealEls.forEach(function (el) { el.classList.add('is-in'); });
+      } else {
+        var io = new IntersectionObserver(function (entries) {
+          entries.forEach(function (entry) {
+            if (entry.isIntersecting) {
+              entry.target.classList.add('is-in');
+              io.unobserve(entry.target);
+            }
+          });
+        }, { threshold: 0.15, rootMargin: '0px 0px -40px 0px' });
+        revealEls.forEach(function (el) { io.observe(el); });
+      }
+
+      // Category filter + title search, combined into one pass
+      var blogPills = document.querySelectorAll('#blogCatPills .score-pill');
+      var postCards = document.querySelectorAll('.post-card');
+      var postEmptyState = document.getElementById('postEmptyState');
+      var postSearchInput = document.getElementById('postSearchInput');
+      var blogActiveCat = 'all';
+
+      function applyPostFilters() {
+        var q = (postSearchInput && postSearchInput.value || '').trim().toLowerCase();
+        var shown = 0;
+        postCards.forEach(function (card) {
+          var catOk = blogActiveCat === 'all' || card.getAttribute('data-cat') === blogActiveCat;
+          var textOk = !q || card.textContent.toLowerCase().indexOf(q) > -1;
+          var show = catOk && textOk;
+          card.classList.toggle('hide', !show);
+          if (show) shown++;
+        });
+        if (postEmptyState) postEmptyState.classList.toggle('hidden', shown > 0);
+      }
+
+      blogPills.forEach(function (pill) {
+        pill.addEventListener('click', function () {
+          blogPills.forEach(function (p) { p.classList.toggle('active', p === pill); });
+          blogActiveCat = pill.getAttribute('data-cat');
+          applyPostFilters();
+        });
+      });
+
+      if (postSearchInput) postSearchInput.addEventListener('input', applyPostFilters);
+    })();
+  </script>
+
+</body>
+
+</html>
