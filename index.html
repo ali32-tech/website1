@@ -375,19 +375,37 @@
 
   <!-- NAV -->
   <header class="sticky top-0 z-40 bg-white/85 backdrop-blur-md border-b border-[var(--color-line)]">
-    <div class="max-w-6xl mx-auto px-6 h-20 flex items-center justify-between">
-      <a href="/" class="flex items-center gap-2.5">
+    <div class="max-w-6xl mx-auto px-6 h-20 flex items-center justify-between gap-4">
+      <a href="/" class="flex items-center gap-2.5 shrink-0">
         <span class="logo-mark"><span class="bar"></span><span class="bar"></span><span class="bar"></span></span>
         <span class="font-display text-lg font-extrabold tracking-tight">Toolbench</span>
       </a>
-      <div class="flex items-center gap-3 md:gap-5">
+
+      <nav class="hidden md:flex items-center gap-7" aria-label="Primary">
+        <a href="#deals" class="nav-link text-sm font-semibold text-[var(--color-muted)] hover:text-[var(--color-ink)] transition-colors">Deals</a>
+        <a href="#explore" class="nav-link text-sm font-semibold text-[var(--color-muted)] hover:text-[var(--color-ink)] transition-colors">Reviews</a>
+        <a href="#best" class="nav-link text-sm font-semibold text-[var(--color-muted)] hover:text-[var(--color-ink)] transition-colors">Best Tools</a>
         <a href="/blog/" class="nav-link text-sm font-semibold text-[var(--color-muted)] hover:text-[var(--color-ink)] transition-colors">Blog</a>
-        <label class="hidden md:flex items-center gap-2 bg-[var(--color-bg-soft)] border border-[var(--color-line)] rounded-full px-3.5 py-2 w-40 focus-within:w-60 focus-within:border-[var(--color-accent)] transition-[width,border-color] duration-300">
-          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" class="text-[var(--color-muted)] shrink-0"><circle cx="11" cy="11" r="7" stroke="currentColor" stroke-width="2"/><path d="M21 21l-4.3-4.3" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
-          <input id="searchInput" type="text" placeholder="Search tools…" class="bg-transparent outline-none text-sm w-full placeholder:text-[var(--color-muted)]">
-        </label>
-        <a href="#newsletter" class="btn-shine btn-press text-sm font-semibold bg-[var(--color-ink)] text-white px-4 py-2 rounded-full hover:bg-[var(--color-accent)] transition-colors whitespace-nowrap">Get Weekly Picks</a>
+        <a href="#about" class="nav-link text-sm font-semibold text-[var(--color-muted)] hover:text-[var(--color-ink)] transition-colors">About</a>
+      </nav>
+
+      <div class="flex items-center gap-2 shrink-0">
+        <a href="#newsletter" class="btn-shine btn-press hidden sm:inline-block text-sm font-semibold bg-[var(--color-ink)] text-white px-4 py-2 rounded-full hover:bg-[var(--color-accent)] transition-colors whitespace-nowrap">Get Weekly Picks</a>
+        <button type="button" id="navToggle" class="md:hidden w-10 h-10 -mr-2 flex items-center justify-center rounded-full text-[var(--color-ink)] hover:bg-[var(--color-bg-soft)] transition-colors" aria-label="Toggle navigation menu" aria-expanded="false" aria-controls="mobileNav">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M4 7h16M4 12h16M4 17h16" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+        </button>
       </div>
+    </div>
+
+    <div id="mobileNav" class="md:hidden hidden border-t border-[var(--color-line)] bg-white">
+      <nav class="max-w-6xl mx-auto px-6 py-3 flex flex-col" aria-label="Mobile">
+        <a href="#deals" class="py-2.5 text-sm font-semibold text-[var(--color-muted)] hover:text-[var(--color-ink)] transition-colors">Deals</a>
+        <a href="#explore" class="py-2.5 text-sm font-semibold text-[var(--color-muted)] hover:text-[var(--color-ink)] transition-colors">Reviews</a>
+        <a href="#best" class="py-2.5 text-sm font-semibold text-[var(--color-muted)] hover:text-[var(--color-ink)] transition-colors">Best Tools</a>
+        <a href="/blog/" class="py-2.5 text-sm font-semibold text-[var(--color-muted)] hover:text-[var(--color-ink)] transition-colors">Blog</a>
+        <a href="#about" class="py-2.5 text-sm font-semibold text-[var(--color-muted)] hover:text-[var(--color-ink)] transition-colors">About</a>
+        <a href="#newsletter" class="sm:hidden mt-3 mb-1 text-center text-sm font-semibold bg-[var(--color-ink)] text-white px-4 py-2.5 rounded-full">Get Weekly Picks</a>
+      </nav>
     </div>
   </header>
 
@@ -1268,21 +1286,19 @@
         });
       }
 
-      // Search: filter review cards live
-      var searchInput = document.getElementById('searchInput');
-      if (searchInput) {
-        var searchCards = document.querySelectorAll('#reviews .stagger > a');
-        searchInput.addEventListener('input', function () {
-          var q = searchInput.value.trim().toLowerCase();
-          searchCards.forEach(function (card) {
-            var name = (card.querySelector('h3').textContent || '').toLowerCase();
-            var cat = (card.querySelector('.mb-0\\.5').textContent || '').toLowerCase();
-            var match = !q || name.indexOf(q) !== -1 || cat.indexOf(q) !== -1;
-            card.style.display = match ? '' : 'none';
-          });
+      // Mobile nav: toggle the dropdown, and close it once a link is followed
+      var navToggle = document.getElementById('navToggle');
+      var mobileNav = document.getElementById('mobileNav');
+      if (navToggle && mobileNav) {
+        navToggle.addEventListener('click', function () {
+          var isOpen = !mobileNav.classList.toggle('hidden');
+          navToggle.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
         });
-        searchInput.addEventListener('keydown', function (e) {
-          if (e.key === 'Enter') document.getElementById('reviews').scrollIntoView({ behavior: reduced ? 'auto' : 'smooth' });
+        mobileNav.querySelectorAll('a').forEach(function (link) {
+          link.addEventListener('click', function () {
+            mobileNav.classList.add('hidden');
+            navToggle.setAttribute('aria-expanded', 'false');
+          });
         });
       }
 
