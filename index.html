@@ -113,10 +113,16 @@
     .hero-in { opacity: 0; transform: translateY(14px); animation: heroIn .75s cubic-bezier(.16,1,.3,1) forwards; }
     @keyframes heroIn { to { opacity: 1; transform: translateY(0); } }
 
-    /* ---------- Nav underline ---------- */
-    .nav-link { position: relative; }
-    .nav-link::after { content:""; position:absolute; left:0; right:0; bottom:-4px; height:1.5px; background: var(--color-accent); transform: scaleX(0); transform-origin: left; transition: transform .25s cubic-bezier(.16,1,.3,1); }
-    .nav-link:hover::after { transform: scaleX(1); }
+    /* ---------- Nav pill: brand-color fill grows in behind the label on hover ---------- */
+    /* `isolation` keeps the -1 pseudo-element behind the text but still above the header. */
+    .nav-link { position: relative; isolation: isolate; padding: .5rem .9rem; border-radius: 9999px;
+      font-size: .875rem; font-weight: 600; color: var(--color-muted); white-space: nowrap;
+      transition: color .25s ease; }
+    .nav-link::before { content:""; position:absolute; inset:0; border-radius:9999px; z-index:-1;
+      background: var(--color-accent); transform: scale(.82); opacity:0;
+      transition: transform .3s cubic-bezier(.16,1,.3,1), opacity .22s ease; }
+    .nav-link:hover::before, .nav-link:focus-visible::before, .nav-link.active::before { transform: scale(1); opacity:1; }
+    .nav-link:hover, .nav-link:focus-visible, .nav-link.active { color: #fff; }
 
     /* ---------- Buttons ---------- */
     .btn-shine { position: relative; overflow: hidden; }
@@ -127,31 +133,17 @@
     .btn-press { transition: transform .15s ease, box-shadow .2s ease; }
     .btn-press:active { transform: scale(.96); }
 
-    /* ---------- Hero search: glossy, premium treatment ---------- */
-    .hero-search { position:relative; display:flex; align-items:center; gap:.75rem;
-      background: rgba(255,255,255,.35); backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px);
-      border: 1px solid rgba(17,20,28,.1);
-      border-radius:9999px; padding:.3rem .3rem .3rem 1.25rem; overflow:hidden;
-      box-shadow: 0 1px 0 rgba(255,255,255,.7) inset, 0 22px 44px -22px rgba(124,58,237,.28), 0 3px 10px -2px rgba(11,13,18,.06);
-      transition: border-color .2s ease, box-shadow .25s ease, transform .2s ease; }
-    .hero-search::before { content:""; position:absolute; top:0; left:6%; right:6%; height:1px;
-      background: linear-gradient(90deg, transparent, rgba(255,255,255,.95), transparent); pointer-events:none; }
-    .hero-search:focus-within { border-color: color-mix(in srgb, var(--color-accent) 45%, rgba(17,20,28,.08));
-      box-shadow: 0 1px 0 rgba(255,255,255,.9) inset, 0 0 0 4px color-mix(in srgb, var(--color-accent) 14%, transparent), 0 24px 48px -20px rgba(124,58,237,.32); }
-    .hero-search input { position:relative; z-index:1; flex:1; border:0; outline:0; background:transparent; font-size:.98rem; color:var(--color-ink); min-width:0; }
-    .hero-search input::placeholder { color: var(--color-muted); }
-    .hero-search-btn { position:relative; width:2.5rem; height:2.5rem; border-radius:9999px; color:#fff;
-      background: linear-gradient(165deg, #A57BF2 0%, var(--color-accent) 55%, var(--color-accent-dark) 100%);
-      display:flex; align-items:center; justify-content:center; flex-shrink:0; border:0; cursor:pointer; overflow:hidden;
-      box-shadow: 0 1px 0 rgba(255,255,255,.5) inset, 0 10px 22px -8px rgba(124,58,237,.6);
-      transition: transform .15s ease, box-shadow .2s ease; }
-    .hero-search-btn::after { content:""; position:absolute; top:-40%; left:-20%; width:70%; height:70%; border-radius:9999px;
-      background: radial-gradient(circle, rgba(255,255,255,.55), transparent 70%); pointer-events:none; }
-    .hero-search-btn:hover { box-shadow: 0 1px 0 rgba(255,255,255,.5) inset, 0 14px 26px -8px rgba(124,58,237,.7); }
-    .hero-search-btn:active { transform: scale(.94); }
-    .search-arrow { animation: arrowFloat 1.8s ease-in-out infinite; }
-    @keyframes arrowFloat { 0%,100% { transform: translateY(0); } 50% { transform: translateY(-3px); } }
-    .hero-search-btn:hover .search-arrow { animation-duration: .7s; }
+    /* ---------- Headline reveal: words rise out from behind a mask, one after another ---------- */
+    /* .word is the mask (overflow hidden); .word-inner is what actually travels. The extra
+       bottom padding keeps descenders (g, y, p) from being clipped by that mask. */
+    .word { display: inline-block; overflow: hidden; vertical-align: bottom; padding-bottom: .1em; }
+    .word-inner { display: inline-block; transform: translateY(120%); animation: wordRise .85s cubic-bezier(.16,1,.3,1) forwards; }
+    @keyframes wordRise { to { transform: translateY(0); } }
+
+    /* Softer companion reveal for the supporting hero copy */
+    .hero-soft { opacity: 0; filter: blur(10px); transform: translateY(16px);
+      animation: heroSoft .9s cubic-bezier(.16,1,.3,1) forwards; }
+    @keyframes heroSoft { to { opacity: 1; filter: blur(0); transform: translateY(0); } }
 
     /* ---------- Ping ring (live indicator) ---------- */
     .ping-dot { position: relative; }
@@ -354,12 +346,14 @@
       html { scroll-behavior: auto; }
       .reveal { opacity:1 !important; transform:none !important; transition:none !important; }
       .hero-in { animation:none !important; opacity:1 !important; transform:none !important; }
+      .hero-soft { animation:none !important; opacity:1 !important; filter:none !important; transform:none !important; }
+      .word { overflow: visible !important; }
+      .word-inner { animation:none !important; transform:none !important; }
       .marquee-track { animation:none !important; }
       .grade-ring { transition:none !important; }
       .card-hover { transition:none !important; }
       .logo-mark .bar { animation:none !important; transform:scaleY(.8) !important; }
       .field .glow { animation:none !important; transition:none !important; }
-      .search-arrow { animation:none !important; }
       .ping-dot::before { animation:none !important; opacity:0 !important; }
       .shine-sweep::after { animation:none !important; }
       .glyph-spin { animation:none !important; }
@@ -375,21 +369,21 @@
 
   <!-- NAV -->
   <header class="sticky top-0 z-40 bg-white/85 backdrop-blur-md border-b border-[var(--color-line)]">
-    <div class="max-w-6xl mx-auto px-6 h-20 flex items-center justify-between gap-4">
+    <div class="max-w-6xl mx-auto px-6 h-20 flex items-center gap-4">
       <a href="/" class="flex items-center gap-2.5 shrink-0">
         <span class="logo-mark"><span class="bar"></span><span class="bar"></span><span class="bar"></span></span>
         <span class="font-display text-lg font-extrabold tracking-tight">Toolbench</span>
       </a>
 
-      <nav class="hidden md:flex items-center gap-7" aria-label="Primary">
-        <a href="#deals" class="nav-link text-sm font-semibold text-[var(--color-muted)] hover:text-[var(--color-ink)] transition-colors">Deals</a>
-        <a href="#explore" class="nav-link text-sm font-semibold text-[var(--color-muted)] hover:text-[var(--color-ink)] transition-colors">Reviews</a>
-        <a href="#best" class="nav-link text-sm font-semibold text-[var(--color-muted)] hover:text-[var(--color-ink)] transition-colors">Best Tools</a>
-        <a href="/blog/" class="nav-link text-sm font-semibold text-[var(--color-muted)] hover:text-[var(--color-ink)] transition-colors">Blog</a>
-        <a href="#about" class="nav-link text-sm font-semibold text-[var(--color-muted)] hover:text-[var(--color-ink)] transition-colors">About</a>
+      <nav class="hidden md:flex items-center gap-1 ml-7" aria-label="Primary">
+        <a href="#deals" class="nav-link">Deals</a>
+        <a href="#explore" class="nav-link">Reviews</a>
+        <a href="#best" class="nav-link">Best Tools</a>
+        <a href="/blog/" class="nav-link">Blog</a>
+        <a href="#about" class="nav-link">About</a>
       </nav>
 
-      <div class="flex items-center gap-2 shrink-0">
+      <div class="flex items-center gap-2 shrink-0 ml-auto">
         <a href="#newsletter" class="btn-shine btn-press hidden sm:inline-block text-sm font-semibold bg-[var(--color-ink)] text-white px-4 py-2 rounded-full hover:bg-[var(--color-accent)] transition-colors whitespace-nowrap">Get Weekly Picks</a>
         <button type="button" id="navToggle" class="md:hidden w-10 h-10 -mr-2 flex items-center justify-center rounded-full text-[var(--color-ink)] hover:bg-[var(--color-bg-soft)] transition-colors" aria-label="Toggle navigation menu" aria-expanded="false" aria-controls="mobileNav">
           <svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M4 7h16M4 12h16M4 17h16" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
@@ -423,27 +417,17 @@
         <div class="max-w-2xl mx-auto text-center">
 
           <!-- Headline -->
-          <h1 class="hero-in font-hero font-bold tracking-tight text-balance text-[var(--color-ink)] text-4xl sm:text-5xl md:text-[3.1rem] leading-[1.15]" style="animation-delay:.24s">
+          <h1 id="heroHeadline" class="font-hero font-bold tracking-tight text-balance text-[var(--color-ink)] text-4xl sm:text-5xl md:text-[3.1rem] leading-[1.15]">
             Every tool here earned its spot on <span class="text-[var(--color-accent)]">the bench</span>.
           </h1>
 
           <!-- Copy -->
-          <p class="hero-in mt-6 text-xl leading-[1.6] font-normal text-[var(--color-muted)] max-w-lg mx-auto" style="animation-delay:.34s">
+          <p class="hero-soft mt-6 text-xl leading-[1.6] font-normal text-[var(--color-muted)] max-w-lg mx-auto" style="animation-delay:.55s">
             No vague verdicts. No sponsored placements.<br class="hidden sm:block">
             Just hands-on testing — so you don't have to.
           </p>
 
-          <form class="hero-in mt-6 max-w-xl mx-auto" id="heroSearchForm" style="animation-delay:.42s">
-            <label class="hero-search">
-              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" class="text-[var(--color-muted)] shrink-0"><circle cx="11" cy="11" r="7" stroke="currentColor" stroke-width="2"/><path d="M21 21l-4.3-4.3" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
-              <input type="text" id="heroSearchInput" placeholder="Find a tool, a comparison, or a category…">
-              <button type="submit" class="hero-search-btn" aria-label="Search">
-                <svg class="search-arrow" width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M12 19V5M5 12l7-7 7 7" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
-              </button>
-            </label>
-          </form>
-
-          <p class="hero-in mt-7 text-sm font-semibold text-[var(--color-muted)]" style="animation-delay:.5s">
+          <p class="hero-soft mt-8 text-sm font-semibold text-[var(--color-muted)]" style="animation-delay:.72s">
             Trusted by 4,000+ marketing teams · 900+ new teams every month
           </p>
         </div>
@@ -716,6 +700,35 @@
   <script>
     (function () {
       var reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+      // Headline reveal: wrap each word in a mask + riser so the line unfurls word by word.
+      // Walks text nodes rather than rewriting innerHTML, so inline accent spans survive.
+      function revealHeadline(el, startDelay, stepMs) {
+        if (!el || reduced) return;
+        var walker = document.createTreeWalker(el, NodeFilter.SHOW_TEXT, null);
+        var textNodes = [];
+        while (walker.nextNode()) textNodes.push(walker.currentNode);
+        textNodes.forEach(function (node) {
+          if (!node.textContent.trim()) return;
+          var frag = document.createDocumentFragment();
+          node.textContent.split(/(\s+)/).forEach(function (part) {
+            if (!part) return;
+            if (/^\s+$/.test(part)) { frag.appendChild(document.createTextNode(part)); return; }
+            var mask = document.createElement('span');
+            mask.className = 'word';
+            var riser = document.createElement('span');
+            riser.className = 'word-inner';
+            riser.textContent = part;
+            mask.appendChild(riser);
+            frag.appendChild(mask);
+          });
+          node.parentNode.replaceChild(frag, node);
+        });
+        el.querySelectorAll('.word-inner').forEach(function (riser, i) {
+          riser.style.animationDelay = (startDelay + i * stepMs) + 'ms';
+        });
+      }
+      revealHeadline(document.getElementById('heroHeadline'), 120, 60);
 
       // Scroll reveal (below-fold)
       var revealEls = document.querySelectorAll('.reveal');
@@ -1081,20 +1094,6 @@
         });
 
         switchSpotlightCategory('ai');
-      }
-
-      // Hero search: jumps straight to the Best Of showcase
-      var heroSearchForm = document.getElementById('heroSearchForm');
-      var heroSearchInput = document.getElementById('heroSearchInput');
-      if (heroSearchForm) {
-        function routeSearch() {
-          var target = document.getElementById('best');
-          if (target) target.scrollIntoView({ behavior: reduced ? 'auto' : 'smooth', block: 'start' });
-        }
-        heroSearchForm.addEventListener('submit', function (e) {
-          e.preventDefault();
-          routeSearch();
-        });
       }
 
       // Review pill marquee: icon + name + verdict + badge, built from real review data
