@@ -105,15 +105,19 @@
     .nav-group { align-items: center; gap: .15rem; margin-left: 1.5rem; padding: .28rem;
       border-radius: 9999px; background: var(--color-bg-soft); border: 1px solid var(--color-line); }
 
-    /* ---------- Header search ---------- */
+    /* ---------- Hero search ---------- */
     .site-search { position: relative; }
-    .search-box { display: flex; align-items: center; gap: .5rem; width: 11rem;
-      background: var(--color-bg-soft); border: 1px solid var(--color-line); border-radius: 9999px;
-      padding: .5rem .9rem; transition: width .3s cubic-bezier(.16,1,.3,1), border-color .2s ease, box-shadow .2s ease; }
-    .search-box:focus-within { width: 15rem; border-color: var(--color-accent); background: #fff;
-      box-shadow: 0 0 0 3px color-mix(in srgb, var(--color-accent) 14%, transparent); }
+    .search-box { position: relative; display: flex; align-items: center; gap: .75rem;
+      background: rgba(255,255,255,.55); backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px);
+      border: 1px solid rgba(17,20,28,.1); border-radius: 9999px; padding: .8rem 1.35rem;
+      box-shadow: 0 1px 0 rgba(255,255,255,.7) inset, 0 22px 44px -22px rgba(124,58,237,.28), 0 3px 10px -2px rgba(11,13,18,.06);
+      transition: border-color .2s ease, box-shadow .25s ease; }
+    .search-box::before { content:""; position:absolute; top:0; left:6%; right:6%; height:1px;
+      background: linear-gradient(90deg, transparent, rgba(255,255,255,.95), transparent); pointer-events:none; }
+    .search-box:focus-within { border-color: color-mix(in srgb, var(--color-accent) 45%, rgba(17,20,28,.08));
+      box-shadow: 0 1px 0 rgba(255,255,255,.9) inset, 0 0 0 4px color-mix(in srgb, var(--color-accent) 14%, transparent), 0 24px 48px -20px rgba(124,58,237,.32); }
     .search-box input { flex: 1; min-width: 0; border: 0; outline: 0; background: transparent;
-      font-size: .85rem; color: var(--color-ink); }
+      font-size: .95rem; color: var(--color-ink); }
     .search-box input::placeholder { color: var(--color-muted); }
 
     /* Nav pill: brand-color fill grows in behind the label on hover.
@@ -197,7 +201,7 @@
         <span class="logo-mark"><span class="bar"></span><span class="bar"></span><span class="bar"></span></span>
         <span class="font-display text-lg font-extrabold tracking-tight">Toolbench</span>
       </a>
-      <nav class="nav-group hidden lg:flex" aria-label="Primary">
+      <nav class="nav-group hidden md:flex" aria-label="Primary">
         <a href="/#deals" class="nav-link">Deals</a>
         <a href="/#explore" class="nav-link">Reviews</a>
         <a href="/#best" class="nav-link">Best Tools</a>
@@ -206,20 +210,14 @@
       </nav>
 
       <div class="flex items-center gap-2.5 shrink-0 ml-auto">
-        <div class="site-search hidden md:block">
-          <label class="search-box">
-            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" class="shrink-0 text-[var(--color-muted)]"><circle cx="11" cy="11" r="7" stroke="currentColor" stroke-width="2"/><path d="M21 21l-4.3-4.3" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
-            <input type="text" id="postSearchInput" placeholder="Search posts…" autocomplete="off" aria-label="Search posts">
-          </label>
-        </div>
         <a href="#newsletter" class="btn-shine btn-press hidden sm:inline-block text-sm font-semibold bg-[var(--color-ink)] text-white px-4 py-2 rounded-full hover:bg-[var(--color-accent)] transition-colors whitespace-nowrap">Get Weekly Picks</a>
-        <button type="button" id="navToggle" class="lg:hidden w-10 h-10 -mr-2 flex items-center justify-center rounded-full text-[var(--color-ink)] hover:bg-[var(--color-bg-soft)] transition-colors" aria-label="Toggle navigation menu" aria-expanded="false" aria-controls="mobileNav">
+        <button type="button" id="navToggle" class="md:hidden w-10 h-10 -mr-2 flex items-center justify-center rounded-full text-[var(--color-ink)] hover:bg-[var(--color-bg-soft)] transition-colors" aria-label="Toggle navigation menu" aria-expanded="false" aria-controls="mobileNav">
           <svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M4 7h16M4 12h16M4 17h16" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
         </button>
       </div>
     </div>
 
-    <div id="mobileNav" class="lg:hidden hidden border-t border-[var(--color-line)] bg-white">
+    <div id="mobileNav" class="md:hidden hidden border-t border-[var(--color-line)] bg-white">
       <nav class="max-w-6xl mx-auto px-6 py-3 flex flex-col" aria-label="Mobile">
         <a href="/#deals" class="py-2.5 text-sm font-semibold text-[var(--color-muted)] hover:text-[var(--color-ink)] transition-colors">Deals</a>
         <a href="/#explore" class="py-2.5 text-sm font-semibold text-[var(--color-muted)] hover:text-[var(--color-ink)] transition-colors">Reviews</a>
@@ -247,6 +245,13 @@
       <p class="hero-soft mt-5 text-lg text-[var(--color-muted)] max-w-xl mx-auto" style="animation-delay:.5s">
         Teardowns, migration diaries, and the occasional rant — written while the tools were still open in our tabs.
       </p>
+
+      <div class="hero-soft site-search mt-8 max-w-lg mx-auto" style="animation-delay:.62s">
+        <label class="search-box">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" class="shrink-0 text-[var(--color-muted)]"><circle cx="11" cy="11" r="7" stroke="currentColor" stroke-width="2"/><path d="M21 21l-4.3-4.3" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+          <input type="text" id="postSearchInput" placeholder="Search posts…" autocomplete="off" aria-label="Search posts">
+        </label>
+      </div>
     </div>
   </section>
 
