@@ -311,9 +311,11 @@
     }
 
     /* ---------- Hero backdrop: colorful, drifting field of app logos ---------- */
+    /* The mask clears logos from behind the headline. Keep it tight — an oversized
+       hole leaves a big empty white patch above and behind the hero text. */
     .hero-app-field { position: absolute; inset: 0; z-index: 1; pointer-events: none;
-      -webkit-mask-image: radial-gradient(65% 60% at 50% 40%, transparent 0%, transparent 28%, #000 62%);
-      mask-image: radial-gradient(65% 60% at 50% 40%, transparent 0%, transparent 28%, #000 62%); }
+      -webkit-mask-image: radial-gradient(52% 46% at 50% 42%, transparent 0%, transparent 26%, #000 60%);
+      mask-image: radial-gradient(52% 46% at 50% 42%, transparent 0%, transparent 26%, #000 60%); }
     .hero-app-logo { position: absolute; border-radius: .8rem; background: #fff; border: 1px solid var(--color-line);
       opacity: .4; display: flex; align-items: center; justify-content: center; overflow: hidden;
       animation: altFloatSubtle var(--hero-dur, 6s) ease-in-out infinite; animation-delay: var(--hero-delay, 0s); }
