@@ -17,7 +17,19 @@
   <meta property="og:description"
     content="We review SEO, content, and growth marketing tools we actually use on real client work. No sponsored rankings, no fluff.">
 
+  <meta property="og:image" content="https://toolbench.co/assets/og-image.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="Toolbench: marketing and SEO tools, tested by people who use them">
+  <meta property="og:locale" content="en_US">
+
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Toolbench | Marketing &amp; SEO Tools, Tested by People Who Use Them">
+  <meta name="twitter:description" content="We review SEO, content, and growth marketing tools we actually use on real client work. No sponsored rankings, no fluff.">
+  <meta name="twitter:image" content="https://toolbench.co/assets/og-image.png">
+
   <meta name="theme-color" content="#7C3AED">
+  <link rel="icon" href="favicon.svg" type="image/svg+xml">
 
   <script type="application/ld+json">
   {
@@ -25,12 +37,13 @@
     "@type": "Organization",
     "name": "Toolbench",
     "url": "https://toolbench.co/",
-    "description": "Hands-on reviews of SEO, content, and growth marketing tools."
+    "description": "Hands-on reviews of SEO, content, and growth marketing tools.",
+    "logo": "https://toolbench.co/favicon.svg"
   }
   </script>
 
-  <!-- Tailwind v4 CDN -->
-  <script src="https://unpkg.com/@tailwindcss/browser@4"></script>
+  <!-- Tailwind v4 CDN (pinned to an exact version so new releases cannot change the styling) -->
+  <script src="https://unpkg.com/@tailwindcss/browser@4.3.3"></script>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@500;600;700;800&family=Inter:wght@400;500;600;700&family=Bricolage+Grotesque:opsz,wght@12..96,600..800&display=swap" rel="stylesheet">
@@ -734,7 +747,7 @@
           <p class="text-white/65">No spam, no affiliate spam disguised as "news." Just what we're testing and whether it's worth your money.</p>
         </div>
         <form class="relative w-full md:w-auto flex flex-col sm:flex-row gap-3 shrink-0">
-          <input type="email" required placeholder="you@company.com"
+          <input type="email" required aria-label="Email address" placeholder="you@company.com"
             class="px-4 py-3.5 rounded-full text-[var(--color-ink)] bg-white w-full sm:w-72 outline-none focus:ring-2 focus:ring-[var(--color-accent)] transition-shadow">
           <button type="submit" class="btn-shine btn-press bg-[var(--color-accent)] hover:bg-[var(--color-accent-dark)] transition-colors font-semibold px-6 py-3.5 rounded-full whitespace-nowrap">Subscribe</button>
         </form>
@@ -752,7 +765,7 @@
       <h2 class="font-display text-3xl md:text-5xl font-extrabold tracking-tight text-balance">Your next favorite tool is already reviewed.</h2>
       <p class="mt-5 text-lg text-[var(--color-muted)] max-w-lg mx-auto">No sponsored placements, no vague verdicts — just hands-on reviews that tell you what's actually worth your budget.</p>
       <div class="mt-9 flex flex-wrap items-center justify-center gap-4">
-        <a href="#reviews" class="btn-shine btn-press inline-flex items-center gap-2 bg-[var(--color-accent)] text-white font-semibold px-6 py-3.5 rounded-full hover:bg-[var(--color-accent-dark)] transition-colors shadow-[0_14px_30px_-14px_rgba(124,58,237,.65)]">
+        <a href="#explore" class="btn-shine btn-press inline-flex items-center gap-2 bg-[var(--color-accent)] text-white font-semibold px-6 py-3.5 rounded-full hover:bg-[var(--color-accent-dark)] transition-colors shadow-[0_14px_30px_-14px_rgba(124,58,237,.65)]">
           Browse Reviews <span class="arrow">→</span>
         </a>
         <a href="#newsletter" class="btn-press inline-flex items-center gap-2 font-semibold px-6 py-3.5 rounded-full bg-[var(--color-bg-soft)] hover:bg-[var(--color-line)] transition-colors">
@@ -791,9 +804,9 @@
       <div>
         <div class="text-xs font-bold uppercase tracking-wider text-[var(--color-muted)] mb-3">Legal</div>
         <ul class="space-y-2 text-sm text-[var(--color-muted)]">
-          <li><a href="#" class="hover:text-[var(--color-ink)]">Privacy</a></li>
-          <li><a href="#" class="hover:text-[var(--color-ink)]">Terms</a></li>
-          <li><a href="#" class="hover:text-[var(--color-ink)]">Affiliate Disclosure</a></li>
+          <li><a href="/privacy/" class="hover:text-[var(--color-ink)]">Privacy</a></li>
+          <li><a href="/terms/" class="hover:text-[var(--color-ink)]">Terms</a></li>
+          <li><a href="/affiliate-disclosure/" class="hover:text-[var(--color-ink)]">Affiliate Disclosure</a></li>
         </ul>
       </div>
     </div>
@@ -849,20 +862,6 @@
           });
         }, { threshold: 0.15, rootMargin: '0px 0px -40px 0px' });
         revealEls.forEach(function (el) { io.observe(el); });
-      }
-
-      // Grade rings: fire on scroll into view
-      function drawRing(el) { el.style.setProperty('--pct', el.getAttribute('data-target')); }
-      var gridRings = document.querySelectorAll('#reviews .grade-ring');
-      if (reduced || !('IntersectionObserver' in window)) {
-        gridRings.forEach(drawRing);
-      } else {
-        var ringIo = new IntersectionObserver(function (entries) {
-          entries.forEach(function (entry) {
-            if (entry.isIntersecting) { drawRing(entry.target); ringIo.unobserve(entry.target); }
-          });
-        }, { threshold: 0.4 });
-        gridRings.forEach(function (el) { ringIo.observe(el); });
       }
 
       // Become Efficient: scroll-driven stacking cards, pinned heading
